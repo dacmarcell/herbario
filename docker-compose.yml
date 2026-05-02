@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:18
+    container_name: plantas-db
+    environment:
+      POSTGRES_DB: plantas
+      POSTGRES_USER: plantas
+      POSTGRES_PASSWORD: plantas
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: plantas-api
+    ports:
+      - "8080:8080"
+    environment:
+      # Sobrescreve as configurações do application.properties para usar o container do banco
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/plantas
+      - SPRING_DATASOURCE_USERNAME=plantas
+      - SPRING_DATASOURCE_PASSWORD=plantas
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    container_name: plantas-web
+    ports:
+      - "5173:5173"
+    environment:
+      # Variável de ambiente para o frontend se comunicar com a API
+      - VITE_API_URL=http://localhost:8080
+    volumes:
+      - ./web/src:/app/src
+      - ./web/public:/app/public
+      - ./web/index.html:/app/index.html
+      - ./web/vite.config.ts:/app/vite.config.ts
+      - ./web/package.json:/app/package.json
+    depends_on:
+      - api
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
