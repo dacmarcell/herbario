@@ -1,5 +1,7 @@
-import "./App.css";
 import { Route, Routes } from "react-router-dom";
+import ListagemPage from "./pages/ListagemPage";
+import DetalhePage from "./pages/DetalhePage";
+import CriacaoPage from "./pages/CriacaoPage";
 
 function App() {
   return (

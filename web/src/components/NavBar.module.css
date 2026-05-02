@@ -1,0 +1,86 @@
+.header {
+  background: var(--green-900);
+  border-bottom: 1px solid var(--green-700);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(8px);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--green-50);
+  transition: opacity 0.2s;
+}
+
+.logo:hover { opacity: 0.8; }
+
+.logoText {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--cream-100);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navLink {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--green-200);
+  letter-spacing: 0.03em;
+  transition: color 0.2s;
+  text-transform: lowercase;
+}
+
+.navLink:hover { color: var(--cream-100); }
+
+.navLink.active {
+  color: var(--cream-100);
+  border-bottom: 1px solid var(--green-300);
+  padding-bottom: 1px;
+}
+
+.addBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--green-500);
+  color: var(--cream-100);
+  font-size: 0.875rem;
+  font-weight: 400;
+  padding: 8px 18px;
+  border-radius: 100px;
+  transition: background 0.2s, transform 0.15s;
+  letter-spacing: 0.01em;
+}
+
+.addBtn:hover {
+  background: var(--green-400);
+  transform: translateY(-1px);
+}
+
+.addBtn.addBtnActive {
+  background: var(--green-300);
+  color: var(--green-900);
+}
+
+.plus {
+  font-size: 1.1rem;
+  font-weight: 300;
+  line-height: 1;
+}

@@ -1,0 +1,456 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--cream-100);
+}
+
+.main {
+  flex: 1;
+  padding: 2.5rem 0 5rem;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+/* ── Sidebar ──────────────────────────────────────────── */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: sticky;
+  top: 100px;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--green-500);
+  transition:
+    color 0.2s,
+    gap 0.2s;
+  margin-bottom: 0.25rem;
+}
+
+.backLink:hover {
+  color: var(--green-700);
+  gap: 4px;
+}
+
+.sidebarCard {
+  background: var(--green-900);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.sidebarLeaf {
+  position: absolute;
+  bottom: -10px;
+  right: -10px;
+  opacity: 0.5;
+}
+
+.sidebarTitle {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--cream-100);
+  margin-bottom: 0.75rem;
+}
+
+.sidebarDesc {
+  font-size: 0.85rem;
+  color: var(--green-200);
+  line-height: 1.65;
+}
+
+.tipsCard {
+  background: white;
+  border: 1px solid var(--cream-300);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+}
+
+.tipsTitle {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--green-700);
+  margin-bottom: 0.75rem;
+}
+
+.tipsList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.tip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tipCode {
+  font-size: 0.75rem;
+  background: var(--green-50);
+  color: var(--green-700);
+  border: 1px solid var(--green-100);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: "Courier New", monospace;
+  white-space: nowrap;
+}
+
+.tipLabel {
+  font-size: 0.78rem;
+  color: var(--green-400);
+}
+
+/* ── Form ─────────────────────────────────────────────── */
+.formArea {
+  animation: fadeUp 0.35s ease both;
+}
+
+.formHeader {
+  margin-bottom: 2rem;
+}
+
+.formTitle {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 400;
+  color: var(--green-900);
+  margin-bottom: 0.5rem;
+}
+
+.formSubtitle {
+  font-size: 0.9rem;
+  color: var(--green-400);
+  line-height: 1.6;
+}
+
+.serverError {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #fff5f5;
+  border: 1px solid #fca5a5;
+  color: #b91c1c;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+/* ── Field ────────────────────────────────────────────── */
+.fieldGroup {
+  margin-bottom: 1.75rem;
+}
+
+.label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--green-800);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.01em;
+}
+
+.required {
+  color: var(--green-500);
+  margin-left: 3px;
+}
+
+.inputWrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  border: 1.5px solid var(--cream-300);
+  border-radius: var(--radius-md);
+  padding: 0 14px;
+  height: 50px;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.inputWrap:focus-within {
+  border-color: var(--green-400);
+  box-shadow: 0 0 0 3px rgba(42, 95, 60, 0.07);
+}
+
+.inputWrap.inputError {
+  border-color: #f87171;
+}
+.inputWrap.inputSuccess {
+  border-color: var(--green-300);
+}
+
+.input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1rem;
+  font-family: var(--font-body);
+  color: var(--green-900);
+}
+
+.input::placeholder {
+  color: var(--green-200);
+}
+
+.inputCharCount {
+  font-size: 0.72rem;
+  color: var(--green-300);
+  white-space: nowrap;
+  font-family: "Courier New", monospace;
+}
+
+.errorMsg {
+  font-size: 0.8rem;
+  color: #dc2626;
+  margin-top: 0.4rem;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Editor ───────────────────────────────────────────── */
+.editorBox {
+  background: white;
+  border: 1.5px solid var(--cream-300);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.editorBox:focus-within {
+  border-color: var(--green-400);
+  box-shadow: 0 0 0 3px rgba(42, 95, 60, 0.07);
+}
+
+.editorBox.editorError {
+  border-color: #f87171;
+}
+.editorBox.editorSuccess {
+  border-color: var(--green-300);
+}
+
+.editorToolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--cream-200);
+  border-bottom: 1px solid var(--cream-300);
+  padding: 6px 10px;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.toolbarButtons {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.toolBtn {
+  background: none;
+  border: none;
+  border-radius: 5px;
+  padding: 4px 8px;
+  font-size: 0.78rem;
+  font-family: var(--font-body);
+  color: var(--green-600);
+  transition:
+    background 0.15s,
+    color 0.15s;
+  min-width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toolBtn:hover {
+  background: var(--cream-300);
+  color: var(--green-900);
+}
+
+.toolDivider {
+  width: 1px;
+  height: 20px;
+  background: var(--cream-300);
+  margin: 0 4px;
+}
+
+.tabsWrap {
+  display: flex;
+  background: var(--cream-100);
+  border: 1px solid var(--cream-300);
+  border-radius: 6px;
+  padding: 2px;
+  gap: 2px;
+}
+
+.tabBtn {
+  background: none;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-size: 0.78rem;
+  font-family: var(--font-body);
+  color: var(--green-400);
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.tabBtn.tabActive {
+  background: white;
+  color: var(--green-800);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.textarea {
+  display: block;
+  width: 100%;
+  min-height: 320px;
+  border: none;
+  outline: none;
+  padding: 1.25rem 1.5rem;
+  font-size: 0.95rem;
+  font-family: "Courier New", monospace;
+  line-height: 1.75;
+  color: var(--green-800);
+  background: white;
+  resize: vertical;
+}
+
+.textarea::placeholder {
+  color: var(--green-200);
+  font-family: var(--font-body);
+  font-style: italic;
+}
+
+.previewPane {
+  min-height: 320px;
+  padding: 1.5rem;
+  background: white;
+}
+
+.editorFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 14px;
+  background: var(--cream-200);
+  border-top: 1px solid var(--cream-300);
+}
+
+.charCount {
+  font-size: 0.72rem;
+  color: var(--green-300);
+  font-family: "Courier New", monospace;
+}
+
+.charWarn {
+  color: #dc2626;
+}
+
+.editorHint {
+  font-size: 0.72rem;
+  color: var(--green-300);
+}
+
+/* ── Actions ──────────────────────────────────────────── */
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--cream-200);
+  margin-top: 0.5rem;
+}
+
+.cancelBtn {
+  font-size: 0.9rem;
+  color: var(--green-400);
+  padding: 10px 20px;
+  border-radius: 100px;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.cancelBtn:hover {
+  background: var(--cream-200);
+  color: var(--green-700);
+}
+
+.submitBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--green-800);
+  color: var(--cream-100);
+  border: none;
+  padding: 12px 28px;
+  border-radius: 100px;
+  font-size: 0.9rem;
+  font-family: var(--font-body);
+  font-weight: 400;
+  transition:
+    background 0.2s,
+    transform 0.15s,
+    opacity 0.2s;
+}
+
+.submitBtn:hover:not(:disabled) {
+  background: var(--green-600);
+  transform: translateY(-1px);
+}
+
+.submitBtn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.spinner {
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+/* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+  }
+
+  .tipsCard {
+    display: none;
+  }
+}
