@@ -1,7 +1,7 @@
 services:
   db:
     image: postgres:18
-    container_name: postgres-db
+    container_name: plantas-db
     environment:
       POSTGRES_DB: plantas
       POSTGRES_USER: plantas

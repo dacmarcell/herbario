@@ -1,0 +1,27 @@
+# Plantas
+### Listar todas as plantas
+GET http://localhost:8080/plantas
+
+### Buscar planta por ID
+GET http://localhost:8080/plantas/1
+
+### Criar planta
+POST http://localhost:8080/plantas
+Content-Type: application/json
+
+{
+    "nome": "Planta 1",
+    "conteudo": "Conteudo da planta 1"
+}
+
+### Atualizar planta
+PATCH http://localhost:8080/plantas/1
+Content-Type: application/json
+
+{
+    "nome": "Planta 1 atualizada",
+    "conteudo": "Conteudo da planta 1 atualizado"
+}
+
+### Deletar planta
+DELETE http://localhost:8080/plantas/1
