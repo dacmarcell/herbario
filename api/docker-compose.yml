@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:18
+    container_name: postgres-db
+    environment:
+      POSTGRES_DB: plantas
+      POSTGRES_USER: plantas
+      POSTGRES_PASSWORD: plantas
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+volumes:
+  postgres_data:
