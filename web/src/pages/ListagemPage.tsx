@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { usePlantas } from "../hooks/usePlantas";
-import styles from "./ListagemPage.module.css";
+import type { Planta } from "../hooks/usePlantas";
 
 export default function ListagemPage() {
   const { plantas, loading, error, refetch } = usePlantas();
@@ -17,7 +17,7 @@ export default function ListagemPage() {
       lista = lista.filter(
         (p) =>
           p.nome?.toLowerCase().includes(termo) ||
-          p.descricao?.toLowerCase().includes(termo),
+          p.conteudo?.toLowerCase().includes(termo),
       );
     }
 
@@ -35,29 +35,38 @@ export default function ListagemPage() {
   }, [plantas, busca, ordem]);
 
   return (
-    <div className={styles.page}>
+    <div className="min-h-screen flex flex-col bg-cream-100">
       <NavBar />
 
       <main>
         {/* Hero */}
-        <section className={styles.hero}>
-          <div className={`container ${styles.heroInner}`}>
-            <div className={styles.heroDecor} aria-hidden="true">
+        <section className="bg-green-900 relative overflow-hidden border-b border-green-700 before:content-[''] before:absolute before:inset-0 before:bg-[radial-gradient(ellipse_60%_80%_at_80%_50%,rgba(42,95,60,0.4)_0%,transparent_70%),radial-gradient(ellipse_40%_60%_at_20%_80%,rgba(26,52,35,0.6)_0%,transparent_60%)] before:pointer-events-none">
+          <div className="container grid grid-cols-1 sm:grid-cols-[1fr_auto] items-center gap-8 py-14 relative z-10">
+            <div
+              className="w-[180px] h-[180px] opacity-60 animate-leafSway hidden sm:block"
+              aria-hidden="true"
+            >
               <BigLeafSVG />
             </div>
-            <div className={styles.heroContent}>
-              <p className={styles.heroEyebrow}>Catálogo Botânico</p>
-              <h1 className={styles.heroTitle}>Herbário de Folhas</h1>
-              <p className={styles.heroSubtitle}>
+            <div className="">
+              <p className="text-[0.75rem] font-normal tracking-[0.15em] uppercase text-green-300 mb-3 font-body">
+                Catálogo Botânico
+              </p>
+              <h1 className="font-display text-[clamp(2.5rem,5vw,3.75rem)] font-normal text-cream-100 leading-[1.1] tracking-tight mb-4">
+                Herbário de Folhas
+              </h1>
+              <p className="text-base text-green-200 max-w-[480px] leading-relaxed mb-8 font-light">
                 Um registro vivo do conhecimento sobre folhas, suas formas,
                 significados e segredos.
               </p>
-              <div className={styles.heroStats}>
-                <div className={styles.stat}>
-                  <span className={styles.statNum}>
+              <div className="flex gap-8">
+                <div className="flex flex-col gap-0.5">
+                  <span className="font-display text-[2rem] font-medium text-cream-100 leading-none">
                     {loading ? "—" : plantas.length}
                   </span>
-                  <span className={styles.statLabel}>espécies registradas</span>
+                  <span className="text-[0.75rem] text-green-300 lowercase tracking-wider">
+                    espécies registradas
+                  </span>
                 </div>
               </div>
             </div>
@@ -65,21 +74,21 @@ export default function ListagemPage() {
         </section>
 
         {/* Toolbar */}
-        <section className={styles.toolbar}>
-          <div className={`container ${styles.toolbarInner}`}>
-            <div className={styles.searchWrap}>
+        <section className="bg-cream-100 border-b border-cream-300 sticky top-16 z-[90]">
+          <div className="container flex items-center gap-4 py-4 flex-wrap sm:flex-nowrap">
+            <div className="flex-1 min-w-0 sm:min-w-[240px] flex items-center gap-[10px] bg-white border border-cream-300 rounded-full px-4 h-11 text-green-400 transition-all focus-within:border-green-400 focus-within:ring-4 focus-within:ring-green-400/5 focus-within:text-green-700">
               <SearchIcon />
               <input
                 type="search"
-                className={styles.searchInput}
-                placeholder="Buscar por nome ou descrição…"
+                className="flex-1 border-none outline-none bg-transparent text-[0.9rem] font-body text-green-900 placeholder:text-green-300"
+                placeholder="Buscar por nome ou conteúdo..."
                 value={busca}
                 onChange={(e) => setBusca(e.target.value)}
                 aria-label="Buscar folhas"
               />
               {busca && (
                 <button
-                  className={styles.clearBtn}
+                  className="bg-transparent border-none text-green-300 text-[1.2rem] p-0 leading-none w-5 h-5 flex items-center justify-center rounded-full transition-colors hover:bg-green-50 hover:text-green-700"
                   onClick={() => setBusca("")}
                   aria-label="Limpar busca"
                 >
@@ -88,13 +97,16 @@ export default function ListagemPage() {
               )}
             </div>
 
-            <div className={styles.controls}>
-              <label className={styles.selectLabel} htmlFor="ordem">
+            <div className="flex items-center gap-2">
+              <label
+                className="text-[0.8rem] text-green-400 whitespace-nowrap"
+                htmlFor="ordem"
+              >
                 Ordenar:
               </label>
               <select
                 id="ordem"
-                className={styles.select}
+                className="border border-cream-300 bg-white rounded-lg px-3 py-2 pr-7 text-[0.875rem] font-body text-green-800 cursor-pointer outline-none transition-colors appearance-none bg-[url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'10\' height=\'6\' fill=\'none\'%3E%3Cpath d=\'M1 1l4 4 4-4\' stroke=\'%235a9e68\' stroke-width=\'1.4\' stroke-linecap=\'round\' stroke-linejoin=\'round\'/%3E%3C/svg%3E')] bg-no-repeat bg-[right_10px_center] focus:border-green-400"
                 value={ordem}
                 onChange={(e) => setOrdem(e.target.value)}
               >
@@ -108,32 +120,42 @@ export default function ListagemPage() {
         </section>
 
         {/* Conteúdo */}
-        <section className={styles.content}>
+        <section className="flex-1 py-10 pb-16">
           <div className="container">
             {loading && <SkeletonGrid />}
 
             {error && !loading && (
-              <div className={styles.errorState}>
+              <div className="flex flex-col items-center justify-center text-center py-20 px-8 gap-4">
                 <ErrorIcon />
-                <h2 className={styles.errorTitle}>
+                <h2 className="font-display text-[1.75rem] font-normal text-green-700">
                   Não foi possível carregar o catálogo
                 </h2>
-                <p className={styles.errorMsg}>{error}</p>
-                <button className={styles.retryBtn} onClick={refetch}>
+                <p className="text-[0.95rem] text-green-400 max-w-[400px] leading-relaxed">
+                  {error}
+                </p>
+                <button
+                  className="mt-2 bg-green-800 text-cream-100 border-none px-6 py-2.5 rounded-full text-[0.9rem] font-body font-normal transition-all inline-flex items-center hover:bg-green-600 hover:-translate-y-px"
+                  onClick={refetch}
+                >
                   Tentar novamente
                 </button>
               </div>
             )}
 
             {!loading && !error && plantas.length === 0 && (
-              <div className={styles.emptyState}>
+              <div className="flex flex-col items-center justify-center text-center py-20 px-8 gap-4">
                 <EmptyLeafSVG />
-                <h2 className={styles.emptyTitle}>Catálogo vazio</h2>
-                <p className={styles.emptyMsg}>
+                <h2 className="font-display text-[1.75rem] font-normal text-green-700">
+                  Catálogo vazio
+                </h2>
+                <p className="text-[0.95rem] text-green-400 max-w-[400px] leading-relaxed">
                   Nenhuma folha foi registrada ainda. Comece adicionando a
                   primeira.
                 </p>
-                <Link to="/nova" className={styles.emptyBtn}>
+                <Link
+                  to="/nova"
+                  className="mt-2 bg-green-800 text-cream-100 border-none px-6 py-2.5 rounded-full text-[0.9rem] font-body font-normal transition-all inline-flex items-center hover:bg-green-600 hover:-translate-y-px"
+                >
                   Registrar primeira folha
                 </Link>
               </div>
@@ -143,15 +165,17 @@ export default function ListagemPage() {
               !error &&
               plantas.length > 0 &&
               plantasFiltradas.length === 0 && (
-                <div className={styles.emptyState}>
+                <div className="flex flex-col items-center justify-center text-center py-20 px-8 gap-4">
                   <SearchEmptyIcon />
-                  <h2 className={styles.emptyTitle}>Nenhum resultado</h2>
-                  <p className={styles.emptyMsg}>
+                  <h2 className="font-display text-[1.75rem] font-normal text-green-700">
+                    Nenhum resultado
+                  </h2>
+                  <p className="text-[0.95rem] text-green-400 max-w-[400px] leading-relaxed">
                     Não encontramos folhas com "<strong>{busca}</strong>". Tente
                     outro termo.
                   </p>
                   <button
-                    className={styles.emptyBtn}
+                    className="mt-2 bg-green-800 text-cream-100 border-none px-6 py-2.5 rounded-full text-[0.9rem] font-body font-normal transition-all inline-flex items-center hover:bg-green-600 hover:-translate-y-px"
                     onClick={() => setBusca("")}
                   >
                     Limpar filtro
@@ -161,14 +185,14 @@ export default function ListagemPage() {
 
             {!loading && !error && plantasFiltradas.length > 0 && (
               <>
-                <div className={styles.resultsInfo}>
+                <div className="text-[0.8rem] text-green-400 mb-6 font-normal tracking-wide">
                   <span>
                     {plantasFiltradas.length === plantas.length
                       ? `${plantas.length} ${plantas.length === 1 ? "registro" : "registros"}`
                       : `${plantasFiltradas.length} de ${plantas.length} registros`}
                   </span>
                 </div>
-                <div className={styles.grid}>
+                <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-5">
                   {plantasFiltradas.map((planta, idx) => (
                     <PlantCard
                       key={planta.id || idx}
@@ -183,7 +207,7 @@ export default function ListagemPage() {
         </section>
       </main>
 
-      <footer className={styles.footer}>
+      <footer className="bg-green-950 text-green-400 text-[0.78rem] text-center py-6 font-body tracking-widest">
         <div className="container">
           <p>Herbário — Catálogo Botânico</p>
         </div>
@@ -192,11 +216,11 @@ export default function ListagemPage() {
   );
 }
 
-function PlantCard({ planta, index }) {
+function PlantCard({ planta, index }: { planta: Planta; index: number }) {
   const preview = useMemo(() => {
-    if (!planta.descricao) return "";
+    if (!planta.conteudo) return "";
     // Remove markdown syntax for preview
-    return planta.descricao
+    return planta.conteudo
       .replace(/#{1,6}\s+/g, "")
       .replace(/\*\*(.+?)\*\*/g, "$1")
       .replace(/\*(.+?)\*/g, "$1")
@@ -207,13 +231,13 @@ function PlantCard({ planta, index }) {
       .replace(/\n+/g, " ")
       .trim()
       .slice(0, 140);
-  }, [planta.descricao]);
+  }, [planta.conteudo]);
 
   const iniciais = planta.nome
     ? planta.nome
         .split(" ")
         .slice(0, 2)
-        .map((w) => w[0])
+        .map((w: string) => w[0])
         .join("")
         .toUpperCase()
     : "?";
@@ -234,35 +258,44 @@ function PlantCard({ planta, index }) {
   return (
     <Link
       to={`/folha/${planta.id}`}
-      className={styles.card}
-      style={{
-        animationDelay: `${index * 60}ms`,
-        "--accent": cardAccent,
-      }}
+      className="group bg-white border border-cream-300 rounded-lg p-6 flex flex-col gap-3 transition-all animate-fadeUp cursor-pointer relative overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:right-0 before:h-[3px] before:bg-[var(--accent)] before:opacity-0 before:transition-opacity before:rounded-t-lg hover:shadow-card-hover hover:-translate-y-px hover:border-green-100 hover:before:opacity-100"
+      style={
+        {
+          animationDelay: `${index * 60}ms`,
+          "--accent": cardAccent,
+        } as any
+      }
     >
-      <div className={styles.cardTop}>
-        <div className={styles.cardAvatar}>
-          <span className={styles.cardAvatarText}>{iniciais}</span>
-          <div className={styles.cardAvatarLeaf} aria-hidden="true">
+      <div className="flex items-center justify-between">
+        <div className="w-11 h-11 rounded-md bg-green-900 flex items-center justify-center relative overflow-hidden">
+          <span className="font-display text-base font-medium text-cream-100 relative z-10">
+            {iniciais}
+          </span>
+          <div
+            className="absolute bottom-0.5 right-0.5 opacity-50"
+            aria-hidden="true"
+          >
             <SmallLeafSVG />
           </div>
         </div>
-        <div className={styles.cardBadge}>
+        <div className="text-[0.7rem] font-mono text-green-300 bg-green-50 border border-green-100 px-2 py-0.5 rounded tracking-wider">
           #{String(planta.id || "?").padStart(3, "0")}
         </div>
       </div>
 
-      <h3 className={styles.cardTitle}>{planta.nome || "Sem nome"}</h3>
+      <h3 className="font-display text-[1.3rem] font-medium text-green-900 leading-tight">
+        {planta.nome || "Sem nome"}
+      </h3>
 
       {preview && (
-        <p className={styles.cardPreview}>
+        <p className="text-[0.875rem] text-green-500 leading-relaxed flex-1">
           {preview}
-          {planta.descricao?.length > 140 ? "…" : ""}
+          {planta.conteudo?.length > 140 ? "…" : ""}
         </p>
       )}
 
-      <div className={styles.cardFooter}>
-        <span className={styles.cardReadMore}>
+      <div className="flex items-center justify-end border-t border-cream-200 pt-3 mt-1">
+        <span className="flex items-center gap-1.5 text-[0.8rem] text-green-500 font-normal transition-all group-hover:gap-2 group-hover:text-green-700">
           Ver detalhes
           <ArrowIcon />
         </span>
@@ -273,9 +306,12 @@ function PlantCard({ planta, index }) {
 
 function SkeletonGrid() {
   return (
-    <div className={styles.grid}>
+    <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-5">
       {Array.from({ length: 6 }).map((_, i) => (
-        <div key={i} className={styles.skeleton} />
+        <div
+          key={i}
+          className="bg-white border border-cream-300 rounded-lg h-[200px] relative overflow-hidden after:content-[''] after:absolute after:inset-0 after:bg-[linear-gradient(90deg,transparent_0%,rgba(196,223,200,0.2)_50%,transparent_100%)] after:bg-[length:400px_100%] after:animate-shimmer"
+        />
       ))}
     </div>
   );

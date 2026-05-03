@@ -1,29 +1,34 @@
 import { Link, useLocation } from "react-router-dom";
-import styles from "./NavBar.module.css";
 
 export default function NavBar() {
   const location = useLocation();
 
   return (
-    <header className={styles.header}>
-      <div className={`container ${styles.inner}`}>
-        <Link to="/" className={styles.logo}>
+    <header className="bg-green-900 border-b border-green-700 sticky top-0 z-[100] backdrop-blur-sm">
+      <div className="container flex items-center justify-between h-16">
+        <Link to="/" className="flex items-center gap-[10px] text-green-50 transition-opacity hover:opacity-80">
           <LeafIcon />
-          <span className={styles.logoText}>Herbário</span>
+          <span className="font-display text-[1.4rem] font-medium tracking-wide text-cream-100">Herbário</span>
         </Link>
 
-        <nav className={styles.nav}>
+        <nav className="flex items-center gap-6">
           <Link
             to="/"
-            className={`${styles.navLink} ${location.pathname === "/" ? styles.active : ""}`}
+            className={`text-[0.875rem] font-normal text-green-200 tracking-wider transition-colors lowercase hover:text-cream-100 ${
+              location.pathname === "/" ? "text-cream-100 border-b border-green-300 pb-[1px]" : ""
+            }`}
           >
             Catálogo
           </Link>
           <Link
             to="/nova"
-            className={`${styles.addBtn} ${location.pathname === "/nova" ? styles.addBtnActive : ""}`}
+            className={`flex items-center gap-1.5 text-[0.875rem] font-normal px-[18px] py-2 rounded-full transition-all hover:-translate-y-px tracking-normal ${
+              location.pathname === "/nova" 
+                ? "bg-green-300 text-green-900" 
+                : "bg-green-500 text-cream-100 hover:bg-green-400"
+            }`}
           >
-            <span className={styles.plus}>+</span>
+            <span className="text-[1.1rem] font-light leading-none">+</span>
             Nova folha
           </Link>
         </nav>

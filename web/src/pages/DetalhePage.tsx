@@ -2,7 +2,6 @@ import { useMemo } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { usePlanta } from "../hooks/usePlantas";
 import NavBar from "../components/NavBar";
-import styles from "./DetalhePage.module.css";
 
 export default function DetalhePage() {
   const { id } = useParams();
@@ -14,104 +13,116 @@ export default function DetalhePage() {
   if (!planta) return null;
 
   return (
-    <div className={styles.page}>
+    <div className="min-h-screen flex flex-col bg-cream-100">
       <NavBar />
 
-      <div className={styles.heroBand}>
-        <div className={`container ${styles.heroBandInner}`}>
-          <Link to="/" className={styles.breadcrumb}>
+      <div className="bg-green-900 border-b border-green-700">
+        <div className="container flex items-center gap-2 py-2.5">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-1.5 text-[0.78rem] text-green-300 transition-colors hover:text-cream-100"
+          >
             <BackIcon /> Catálogo
           </Link>
-          <span className={styles.breadcrumbSep} aria-hidden="true">
+          <span className="text-[0.78rem] text-green-600" aria-hidden="true">
             /
           </span>
-          <span className={styles.breadcrumbCurrent}>{planta.nome}</span>
+          <span className="text-[0.78rem] text-green-200 max-w-[280px] overflow-hidden text-ellipsis whitespace-nowrap">
+            {planta.nome}
+          </span>
         </div>
       </div>
 
-      <main className={styles.main}>
+      <main className="flex-1">
         {/* Hero splash */}
-        <section className={styles.hero}>
-          <div className={styles.heroBg} aria-hidden="true">
+        <section className="bg-green-900 relative overflow-hidden pb-12">
+          <div
+            className="absolute inset-0 pointer-events-none"
+            aria-hidden="true"
+          >
             <HeroBgSVG />
           </div>
 
-          <div className={`container ${styles.heroContent}`}>
-            <div className={styles.heroLeft}>
-              <div className={styles.badge}>
-                <span>#{String(planta.id || "").padStart(3, "0")}</span>
+          <div className="container relative z-10 grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-8 items-center pt-12">
+            <div className="">
+              <div className="inline-flex items-center bg-white/10 border border-white/10 rounded-full px-3 py-1 mb-5">
+                <span className="text-[0.72rem] font-mono text-green-200 tracking-widest">
+                  #{String(planta.id || "").padStart(3, "0")}
+                </span>
               </div>
-              <h1 className={styles.heroTitle}>{planta.nome}</h1>
-              <p className={styles.heroLatin}>
+              <h1 className="font-display text-[clamp(2.25rem,5vw,4rem)] font-normal text-cream-100 leading-[1.1] tracking-tight mb-4">
+                {planta.nome}
+              </h1>
+              <p className="text-[0.9rem] text-green-300 italic font-display">
                 Folha registrada no catálogo botânico
               </p>
             </div>
 
-            <div className={styles.heroRight}>
+            <div className="hidden sm:block">
               <LeafIllustration name={planta.nome} />
             </div>
           </div>
         </section>
 
         {/* Content */}
-        <section className={styles.contentSection}>
-          <div className={`container ${styles.contentGrid}`}>
+        <section className="flex-1 py-12 pb-20">
+          <div className="container grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12 items-start">
             {/* Main article */}
-            <article className={styles.article}>
-              <div className={styles.articleHeader}>
+            <article className="animate-fadeUp">
+              <div className="flex items-center gap-[10px] mb-8">
                 <LeafSmallIcon />
-                <h2 className={styles.articleTitle}>Descrição</h2>
-                <div className={styles.articleLine} />
+                <h2 className="font-display text-[1.1rem] font-medium text-green-600 lowercase tracking-wider">
+                  Conteúdo
+                </h2>
+                <div className="flex-1 h-px bg-cream-300" />
               </div>
 
-              <MarkdownContent content={planta.descricao} />
+              <MarkdownContent content={planta.conteudo} />
             </article>
 
             {/* Sidebar info */}
-            <aside className={styles.infoSidebar}>
-              <div className={styles.infoCard}>
-                <h3 className={styles.infoCardTitle}>Ficha técnica</h3>
-                <dl className={styles.infoList}>
+            <aside className="flex flex-col gap-4 lg:sticky lg:top-[100px] animate-fadeUp [animation-delay:0.1s]">
+              <div className="bg-white border border-cream-300 rounded-lg p-6">
+                <h3 className="font-display text-[1.1rem] font-medium text-green-700 mb-5 pb-3 border-b border-cream-200">
+                  Ficha técnica
+                </h3>
+                <dl className="flex flex-col gap-3.5">
                   <InfoRow
                     label="Identificador"
                     value={`#${String(planta.id || "").padStart(3, "0")}`}
                     mono
                   />
                   <InfoRow label="Nome" value={planta.nome} />
-                  {planta.criadoEm && (
-                    <InfoRow
-                      label="Registrado em"
-                      value={new Date(planta.criadoEm).toLocaleDateString(
-                        "pt-BR",
-                        {
-                          day: "2-digit",
-                          month: "long",
-                          year: "numeric",
-                        },
-                      )}
-                    />
-                  )}
                   <InfoRow
                     label="Extensão"
-                    value={`${planta.descricao?.length || 0} caracteres`}
+                    value={`${planta.conteudo?.length || 0} caracteres`}
                   />
                 </dl>
               </div>
 
-              <div className={styles.navigationCard}>
-                <Link to="/" className={styles.navCardLink}>
+              <div className="bg-white border border-cream-300 rounded-lg overflow-hidden">
+                <Link
+                  to="/"
+                  className="flex items-center gap-[10px] p-4 text-green-600 text-[0.85rem] transition-colors border-b border-cream-200 last:border-b-0 hover:bg-green-50 hover:text-green-800"
+                >
                   <GridIcon />
-                  <span>Ver catálogo completo</span>
+                  <span className="flex-1">Ver catálogo completo</span>
                   <ArrowIcon />
                 </Link>
-                <Link to="/nova" className={styles.navCardLink}>
+                <Link
+                  to="/nova"
+                  className="flex items-center gap-[10px] p-4 text-green-600 text-[0.85rem] transition-colors border-b border-cream-200 last:border-b-0 hover:bg-green-50 hover:text-green-800"
+                >
                   <PlusCircleIcon />
-                  <span>Registrar nova folha</span>
+                  <span className="flex-1">Registrar nova folha</span>
                   <ArrowIcon />
                 </Link>
               </div>
 
-              <div className={styles.decorCard} aria-hidden="true">
+              <div
+                className="rounded-lg bg-green-50 p-6 hidden lg:flex items-center justify-center h-[120px] overflow-hidden border border-green-100"
+                aria-hidden="true"
+              >
                 <DecorLeafSVG />
               </div>
             </aside>
@@ -119,7 +130,7 @@ export default function DetalhePage() {
         </section>
       </main>
 
-      <footer className={styles.footer}>
+      <footer className="bg-green-950 text-green-400 text-[0.78rem] text-center py-6 tracking-widest">
         <div className="container">
           <p>Herbário — Catálogo Botânico</p>
         </div>
@@ -128,9 +139,9 @@ export default function DetalhePage() {
   );
 }
 
-function MarkdownContent({ content }) {
+function MarkdownContent({ content }: { content: string | undefined }) {
   const html = useMemo(() => {
-    if (!content) return "<em>Sem descrição</em>";
+    if (!content) return '<em class="text-green-300 italic">Sem conteúdo</em>';
     return content
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
@@ -155,17 +166,29 @@ function MarkdownContent({ content }) {
 
   return (
     <div
-      className={`${styles.markdownContent} markdown-content`}
+      className="bg-white border border-cream-300 rounded-lg px-6 py-10 sm:px-12 sm:py-10 min-h-[200px] markdown-content"
       dangerouslySetInnerHTML={{ __html: `<p>${html}</p>` }}
     />
   );
 }
 
-function InfoRow({ label, value, mono }: any) {
+function InfoRow({
+  label,
+  value,
+  mono,
+}: {
+  label: string;
+  value: string;
+  mono?: boolean;
+}) {
   return (
-    <div className={styles.infoRow}>
-      <dt className={styles.infoLabel}>{label}</dt>
-      <dd className={`${styles.infoValue} ${mono ? styles.infoMono : ""}`}>
+    <div className="flex flex-col gap-0.5">
+      <dt className="text-[0.72rem] text-green-300 uppercase tracking-widest font-normal">
+        {label}
+      </dt>
+      <dd
+        className={`text-[0.9rem] text-green-800 font-normal ${mono ? "font-mono text-[0.85rem]" : ""}`}
+      >
         {value}
       </dd>
     </div>
@@ -176,25 +199,32 @@ function InfoRow({ label, value, mono }: any) {
 
 function LoadingView() {
   return (
-    <div className={styles.page}>
+    <div className="min-h-screen flex flex-col bg-cream-100">
       <NavBar />
-      <div className={styles.stateCenter}>
-        <div className={styles.loadSpinner} />
-        <p className={styles.loadText}>Carregando folha…</p>
+      <div className="flex-1 flex flex-col items-center justify-center py-20 px-8 gap-4 text-center">
+        <div className="w-10 h-10 border-[2.5px] border-green-100 border-t-green-500 rounded-full animate-spin" />
+        <p className="text-[0.9rem] text-green-400">Carregando folha…</p>
       </div>
     </div>
   );
 }
 
-function ErrorView({ error, onBack }) {
+function ErrorView({ error, onBack }: { error: string; onBack: () => void }) {
   return (
-    <div className={styles.page}>
+    <div className="min-h-screen flex flex-col bg-cream-100">
       <NavBar />
-      <div className={styles.stateCenter}>
+      <div className="flex-1 flex flex-col items-center justify-center py-20 px-8 gap-4 text-center">
         <ErrorLeafSVG />
-        <h2 className={styles.errorTitle}>Folha não encontrada</h2>
-        <p className={styles.errorMsg}>{error}</p>
-        <button className={styles.errorBtn} onClick={onBack}>
+        <h2 className="font-display text-[1.75rem] text-green-700">
+          Folha não encontrada
+        </h2>
+        <p className="text-[0.9rem] text-green-400 max-w-[360px] leading-relaxed">
+          {error}
+        </p>
+        <button
+          className="bg-green-800 text-cream-100 border-none px-6 py-2.5 rounded-full text-[0.9rem] font-body transition-colors mt-2 hover:bg-green-600"
+          onClick={onBack}
+        >
           Voltar ao catálogo
         </button>
       </div>
@@ -204,13 +234,13 @@ function ErrorView({ error, onBack }) {
 
 // ── Illustrations & Icons ──────────────────────────────
 
-function LeafIllustration({ name }) {
+function LeafIllustration({ name }: { name: string }) {
   const seed = name?.charCodeAt(0) || 65;
   const angle = (seed % 30) - 15;
   const scale = 0.9 + (seed % 20) / 100;
 
   return (
-    <div className={styles.leafIllustration}>
+    <div className="w-[200px] h-[200px] drop-shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
       <svg
         viewBox="0 0 200 200"
         fill="none"

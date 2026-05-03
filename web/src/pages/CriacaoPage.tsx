@@ -2,14 +2,13 @@ import { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { criarPlanta } from "../hooks/usePlantas";
-import styles from "./CriacaoPage.module.css";
 
 // Simple markdown editor without external dependency
 // Uses a textarea with markdown shortcuts and preview
 export default function CriacaoPage() {
   const navigate = useNavigate();
   const [nome, setNome] = useState("");
-  const [descricao, setDescricao] = useState("");
+  const [conteudo, setConteudo] = useState("");
   const [errors, setErrors] = useState<any>({});
   const [serverError, setServerError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -23,73 +22,77 @@ export default function CriacaoPage() {
       if (value.trim().length < 2) return "Mínimo de 2 caracteres";
       if (value.trim().length > 100) return "Máximo de 100 caracteres";
     }
-    if (field === "descricao") {
+    if (field === "conteudo") {
       if (!value || value.trim().length === 0)
-        return "A descrição é obrigatória";
+        return "O conteúdo é obrigatório";
       if (value.trim().length < 10) return "Mínimo de 10 caracteres";
     }
     return "";
   };
 
   const handleNomeBlur = () => {
-    setTouched((t) => ({ ...t, nome: true }));
+    setTouched((t: any) => ({ ...t, nome: true }));
     const err = validateField("nome", nome);
-    setErrors((e) => ({ ...e, nome: err }));
+    setErrors((e: any) => ({ ...e, nome: err }));
   };
 
-  const handleDescricaoBlur = () => {
-    setTouched((t) => ({ ...t, descricao: true }));
-    const err = validateField("descricao", descricao);
-    setErrors((e) => ({ ...e, descricao: err }));
+  const handleConteudoBlur = () => {
+    setTouched((t: any) => ({ ...t, conteudo: true }));
+    const err = validateField("conteudo", conteudo);
+    setErrors((e: any) => ({ ...e, conteudo: err }));
   };
 
-  const handleNomeChange = (e) => {
+  const handleNomeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNome(e.target.value);
     if (touched.nome) {
       const err = validateField("nome", e.target.value);
-      setErrors((prev) => ({ ...prev, nome: err }));
+      setErrors((prev: any) => ({ ...prev, nome: err }));
     }
   };
 
-  const handleDescricaoChange = (e) => {
-    setDescricao(e.target.value);
-    if (touched.descricao) {
-      const err = validateField("descricao", e.target.value);
-      setErrors((prev) => ({ ...prev, descricao: err }));
+  const handleConteudoChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setConteudo(e.target.value);
+    if (touched.conteudo) {
+      const err = validateField("conteudo", e.target.value);
+      setErrors((prev: any) => ({ ...prev, conteudo: err }));
     }
   };
 
   // Toolbar shortcuts
-  const insertMarkdown = (prefix, suffix = "", placeholder = "texto") => {
+  const insertMarkdown = (
+    prefix: string,
+    suffix = "",
+    placeholder = "texto",
+  ) => {
     const el = textareaRef.current;
     if (!el) return;
     const start = el.selectionStart;
     const end = el.selectionEnd;
-    const selected = descricao.slice(start, end) || placeholder;
-    const before = descricao.slice(0, start);
-    const after = descricao.slice(end);
+    const selected = conteudo.slice(start, end) || placeholder;
+    const before = conteudo.slice(0, start);
+    const after = conteudo.slice(end);
     const newText = `${before}${prefix}${selected}${suffix}${after}`;
-    setDescricao(newText);
+    setConteudo(newText);
     setTimeout(() => {
       el.focus();
       const newCursor = start + prefix.length + selected.length;
       el.setSelectionRange(newCursor, newCursor);
-      if (touched.descricao) {
-        const err = validateField("descricao", newText);
-        setErrors((prev) => ({ ...prev, descricao: err }));
+      if (touched.conteudo) {
+        const err = validateField("conteudo", newText);
+        setErrors((prev: any) => ({ ...prev, conteudo: err }));
       }
     }, 0);
   };
 
-  const insertLine = (prefix) => {
+  const insertLine = (prefix: string) => {
     const el = textareaRef.current;
     if (!el) return;
     const start = el.selectionStart;
-    const lineStart = descricao.lastIndexOf("\n", start - 1) + 1;
-    const before = descricao.slice(0, lineStart);
-    const rest = descricao.slice(lineStart);
+    const lineStart = conteudo.lastIndexOf("\n", start - 1) + 1;
+    const before = conteudo.slice(0, lineStart);
+    const rest = conteudo.slice(lineStart);
     const newText = `${before}${prefix}${rest}`;
-    setDescricao(newText);
+    setConteudo(newText);
     setTimeout(() => {
       el.focus();
       el.setSelectionRange(
@@ -100,16 +103,16 @@ export default function CriacaoPage() {
   };
 
   const handleSubmit = async () => {
-    setTouched({ nome: true, descricao: true });
+    setTouched({ nome: true, conteudo: true });
     const nomeErr = validateField("nome", nome);
-    const descricaoErr = validateField("descricao", descricao);
-    setErrors({ nome: nomeErr, descricao: descricaoErr });
-    if (nomeErr || descricaoErr) return;
+    const conteudoErr = validateField("conteudo", conteudo);
+    setErrors({ nome: nomeErr, conteudo: conteudoErr });
+    if (nomeErr || conteudoErr) return;
 
     setLoading(true);
     setServerError("");
     try {
-      const result = await criarPlanta({ nome, descricao });
+      const result = await criarPlanta({ nome, conteudo });
       if (result.success) {
         navigate(result.data?.id ? `/folha/${result.data.id}` : "/");
       } else if (result.errors) {
@@ -126,12 +129,12 @@ export default function CriacaoPage() {
     }
   };
 
-  const charCount = descricao.length;
+  const charCount = conteudo.length;
   const renderPreview = () => {
-    if (!descricao.trim())
-      return '<em style="color: var(--green-300)">Nada para visualizar ainda…</em>';
+    if (!conteudo.trim())
+      return '<em class="text-green-300">Nada para visualizar ainda…</em>';
     // Basic markdown to HTML conversion for preview
-    let html = descricao
+    let html = conteudo
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
@@ -139,7 +142,7 @@ export default function CriacaoPage() {
       .replace(/^#{5}\s+(.+)$/gm, "<h5>$1</h5>")
       .replace(/^#{4}\s+(.+)$/gm, "<h4>$1</h4>")
       .replace(/^#{3}\s+(.+)$/gm, "<h3>$1</h3>")
-      .replace(/^#{2}\s+(.+)$/gm, "<h2>$1</h2>")
+      .replace(/^#{2}\s+(.+)$/gm, "<h2>$2</h2>")
       .replace(/^#{1}\s+(.+)$/gm, "<h1>$1</h1>")
       .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
       .replace(/\*(.+?)\*/g, "<em>$1</em>")
@@ -155,35 +158,49 @@ export default function CriacaoPage() {
   };
 
   return (
-    <div className={styles.page}>
+    <div className="min-h-screen flex flex-col bg-cream-100">
       <NavBar />
 
-      <main className={styles.main}>
-        <div className={`container ${styles.layout}`}>
+      <main className="flex-1 py-10 pb-20">
+        <div className="container grid grid-cols-1 md:grid-cols-[280px_1fr] gap-10 items-start">
           {/* Sidebar */}
-          <aside className={styles.sidebar}>
-            <Link to="/" className={styles.backLink}>
+          <aside className="flex flex-col gap-4 md:sticky md:top-[100px]">
+            <Link
+              to="/"
+              className="inline-flex items-center gap-1.5 text-[0.8rem] text-green-500 transition-all mb-1 hover:text-green-700 hover:gap-1"
+            >
               <BackIcon /> Catálogo
             </Link>
 
-            <div className={styles.sidebarCard}>
-              <div className={styles.sidebarLeaf} aria-hidden="true">
+            <div className="bg-green-900 rounded-lg p-6 overflow-hidden relative">
+              <div
+                className="absolute -bottom-[10px] -right-[10px] opacity-50"
+                aria-hidden="true"
+              >
                 <SideLeafSVG />
               </div>
-              <h2 className={styles.sidebarTitle}>Nova folha</h2>
-              <p className={styles.sidebarDesc}>
+              <h2 className="font-display text-2xl font-normal text-cream-100 mb-3">
+                Nova folha
+              </h2>
+              <p className="text-[0.85rem] text-green-200 leading-[1.65]">
                 Registre uma folha com seu nome e uma descrição rica em detalhes
                 botânicos, curiosidades e significados.
               </p>
             </div>
 
-            <div className={styles.tipsCard}>
-              <h3 className={styles.tipsTitle}>Dicas de markdown</h3>
-              <ul className={styles.tipsList}>
+            <div className="bg-white border border-cream-300 rounded-lg p-5 hidden md:block">
+              <h3 className="font-display text-base font-medium text-green-700 mb-3">
+                Dicas de markdown
+              </h3>
+              <ul className="list-none flex flex-col gap-2">
                 {TIPS.map((tip) => (
-                  <li key={tip.syntax} className={styles.tip}>
-                    <code className={styles.tipCode}>{tip.syntax}</code>
-                    <span className={styles.tipLabel}>{tip.label}</span>
+                  <li key={tip.syntax} className="flex items-center gap-2">
+                    <code className="text-[0.75rem] bg-green-50 text-green-700 border border-green-100 px-1.5 py-0.5 rounded font-mono whitespace-nowrap">
+                      {tip.syntax}
+                    </code>
+                    <span className="text-[0.78rem] text-green-400">
+                      {tip.label}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -191,36 +208,44 @@ export default function CriacaoPage() {
           </aside>
 
           {/* Form */}
-          <div className={styles.formArea}>
-            <div className={styles.formHeader}>
-              <h1 className={styles.formTitle}>Registrar folha</h1>
-              <p className={styles.formSubtitle}>
+          <div className="animate-fadeUp">
+            <div className="mb-8">
+              <h1 className="font-display text-[2.25rem] font-normal text-green-900 mb-2">
+                Registrar folha
+              </h1>
+              <p className="text-[0.9rem] text-green-400 leading-relaxed">
                 Preencha os dados com cuidado — cada folha conta uma história.
               </p>
             </div>
 
             {serverError && (
-              <div className={styles.serverError} role="alert">
+              <div
+                className="flex items-start gap-[10px] bg-[#fff5f5] border border-[#fca5a5] text-[#b91c1c] p-4 rounded-md text-[0.875rem] mb-6 leading-relaxed"
+                role="alert"
+              >
                 <AlertIcon />
                 <span>{serverError}</span>
               </div>
             )}
 
             {/* Nome */}
-            <div className={styles.fieldGroup}>
-              <label className={styles.label} htmlFor="nome">
+            <div className="mb-7">
+              <label
+                className="block text-[0.875rem] font-medium text-green-800 mb-2 tracking-tight"
+                htmlFor="nome"
+              >
                 Nome da folha
-                <span className={styles.required} aria-hidden="true">
+                <span className="text-green-500 ml-[3px]" aria-hidden="true">
                   *
                 </span>
               </label>
               <div
-                className={`${styles.inputWrap} ${errors.nome ? styles.inputError : touched.nome && nome ? styles.inputSuccess : ""}`}
+                className={`flex items-center gap-[10px] bg-white border-[1.5px] border-cream-300 rounded-md px-3.5 h-[50px] transition-all focus-within:border-green-400 focus-within:ring-4 focus-within:ring-green-400/5 ${errors.nome ? "border-[#f87171]" : touched.nome && nome ? "border-green-300" : ""}`}
               >
                 <input
                   id="nome"
                   type="text"
-                  className={styles.input}
+                  className="flex-1 border-none outline-none bg-transparent text-base font-body text-green-900 placeholder:text-green-200"
                   value={nome}
                   onChange={handleNomeChange}
                   onBlur={handleNomeBlur}
@@ -229,34 +254,43 @@ export default function CriacaoPage() {
                   aria-describedby={errors.nome ? "nome-error" : undefined}
                   aria-invalid={!!errors.nome}
                 />
-                <span className={styles.inputCharCount}>{nome.length}/100</span>
+                <span className="text-[0.72rem] text-green-300 whitespace-nowrap font-mono">
+                  {nome.length}/100
+                </span>
                 {touched.nome && !errors.nome && nome && <CheckIcon />}
               </div>
               {errors.nome && (
-                <p id="nome-error" className={styles.errorMsg} role="alert">
+                <p
+                  id="nome-error"
+                  className="text-[0.8rem] text-red-600 mt-[0.4rem] flex items-center"
+                  role="alert"
+                >
                   <AlertSmallIcon /> {errors.nome}
                 </p>
               )}
             </div>
 
-            {/* Descrição */}
-            <div className={styles.fieldGroup}>
-              <label className={styles.label} htmlFor="descricao">
-                Descrição
-                <span className={styles.required} aria-hidden="true">
+            {/* Conteúdo */}
+            <div className="mb-7">
+              <label
+                className="block text-[0.875rem] font-medium text-green-800 mb-2 tracking-tight"
+                htmlFor="conteudo"
+              >
+                Conteúdo
+                <span className="text-green-500 ml-[3px]" aria-hidden="true">
                   *
                 </span>
               </label>
 
               <div
-                className={`${styles.editorBox} ${errors.descricao ? styles.editorError : touched.descricao && descricao.length >= 10 ? styles.editorSuccess : ""}`}
+                className={`bg-white border-[1.5px] border-cream-300 rounded-lg overflow-hidden transition-all focus-within:border-green-400 focus-within:ring-4 focus-within:ring-green-400/5 ${errors.conteudo ? "border-[#f87171]" : touched.conteudo && conteudo.length >= 10 ? "border-green-300" : ""}`}
               >
                 {/* Toolbar */}
-                <div className={styles.editorToolbar}>
-                  <div className={styles.toolbarButtons}>
+                <div className="flex items-center justify-between bg-cream-200 border-b border-cream-300 p-2 gap-2 flex-wrap">
+                  <div className="flex items-center gap-[2px]">
                     <button
                       type="button"
-                      className={styles.toolBtn}
+                      className="bg-transparent border-none rounded-[5px] px-2 py-1 text-[0.78rem] font-body text-green-600 transition-colors min-w-[28px] h-7 flex items-center justify-center hover:bg-cream-300 hover:text-green-900"
                       onClick={() => insertMarkdown("**", "**", "negrito")}
                       title="Negrito"
                     >
@@ -264,7 +298,7 @@ export default function CriacaoPage() {
                     </button>
                     <button
                       type="button"
-                      className={styles.toolBtn}
+                      className="bg-transparent border-none rounded-[5px] px-2 py-1 text-[0.78rem] font-body text-green-600 transition-colors min-w-[28px] h-7 flex items-center justify-center hover:bg-cream-300 hover:text-green-900"
                       onClick={() => insertMarkdown("*", "*", "itálico")}
                       title="Itálico"
                     >
@@ -272,16 +306,16 @@ export default function CriacaoPage() {
                     </button>
                     <button
                       type="button"
-                      className={styles.toolBtn}
+                      className="bg-transparent border-none rounded-[5px] px-2 py-1 text-[0.78rem] font-body text-green-600 transition-colors min-w-[28px] h-7 flex items-center justify-center hover:bg-cream-300 hover:text-green-900"
                       onClick={() => insertMarkdown("`", "`", "código")}
                       title="Código"
                     >
                       {"</>"}
                     </button>
-                    <div className={styles.toolDivider} />
+                    <div className="w-px h-5 bg-cream-300 mx-1" />
                     <button
                       type="button"
-                      className={styles.toolBtn}
+                      className="bg-transparent border-none rounded-[5px] px-2 py-1 text-[0.78rem] font-body text-green-600 transition-colors min-w-[28px] h-7 flex items-center justify-center hover:bg-cream-300 hover:text-green-900"
                       onClick={() => insertLine("## ")}
                       title="Título"
                     >
@@ -289,16 +323,16 @@ export default function CriacaoPage() {
                     </button>
                     <button
                       type="button"
-                      className={styles.toolBtn}
+                      className="bg-transparent border-none rounded-[5px] px-2 py-1 text-[0.78rem] font-body text-green-600 transition-colors min-w-[28px] h-7 flex items-center justify-center hover:bg-cream-300 hover:text-green-900"
                       onClick={() => insertLine("### ")}
                       title="Subtítulo"
                     >
                       H3
                     </button>
-                    <div className={styles.toolDivider} />
+                    <div className="w-px h-5 bg-cream-300 mx-1" />
                     <button
                       type="button"
-                      className={styles.toolBtn}
+                      className="bg-transparent border-none rounded-[5px] px-2 py-1 text-[0.78rem] font-body text-green-600 transition-colors min-w-[28px] h-7 flex items-center justify-center hover:bg-cream-300 hover:text-green-900"
                       onClick={() => insertLine("- ")}
                       title="Lista"
                     >
@@ -306,7 +340,7 @@ export default function CriacaoPage() {
                     </button>
                     <button
                       type="button"
-                      className={styles.toolBtn}
+                      className="bg-transparent border-none rounded-[5px] px-2 py-1 text-[0.78rem] font-body text-green-600 transition-colors min-w-[28px] h-7 flex items-center justify-center hover:bg-cream-300 hover:text-green-900"
                       onClick={() => insertMarkdown("> ", "", "citação")}
                       title="Citação"
                     >
@@ -314,17 +348,17 @@ export default function CriacaoPage() {
                     </button>
                   </div>
 
-                  <div className={styles.tabsWrap}>
+                  <div className="flex bg-cream-100 border border-cream-300 rounded-[6px] p-[2px] gap-[2px]">
                     <button
                       type="button"
-                      className={`${styles.tabBtn} ${tab === "escrever" ? styles.tabActive : ""}`}
+                      className={`bg-transparent border-none rounded-[4px] px-3 py-1 text-[0.78rem] font-body transition-all ${tab === "escrever" ? "bg-white text-green-800 shadow-[0_1px_3px_rgba(0,0,0,0.06)]" : "text-green-400"}`}
                       onClick={() => setTab("escrever")}
                     >
                       Escrever
                     </button>
                     <button
                       type="button"
-                      className={`${styles.tabBtn} ${tab === "preview" ? styles.tabActive : ""}`}
+                      className={`bg-transparent border-none rounded-[4px] px-3 py-1 text-[0.78rem] font-body transition-all ${tab === "preview" ? "bg-white text-green-800 shadow-[0_1px_3px_rgba(0,0,0,0.06)]" : "text-green-400"}`}
                       onClick={() => setTab("preview")}
                     >
                       Prévia
@@ -336,58 +370,70 @@ export default function CriacaoPage() {
                 {tab === "escrever" ? (
                   <textarea
                     ref={textareaRef}
-                    id="descricao"
-                    className={styles.textarea}
-                    value={descricao}
-                    onChange={handleDescricaoChange}
-                    onBlur={handleDescricaoBlur}
+                    id="conteudo"
+                    className="block w-full min-h-[320px] border-none outline-none p-5 text-[0.95rem] font-mono leading-relaxed text-green-800 bg-white resize-y placeholder:text-green-200 placeholder:font-body placeholder:italic"
+                    value={conteudo}
+                    onChange={handleConteudoChange}
+                    onBlur={handleConteudoBlur}
                     placeholder="Descreva a folha em detalhes&#10;&#10;Use **markdown** para formatar seu texto.&#10;&#10;Você pode falar sobre:&#10;- Características morfológicas&#10;- Habitat natural&#10;- Usos e propriedades&#10;- Simbolismo e significado cultural"
                     aria-describedby={
-                      errors.descricao ? "desc-error" : undefined
+                      errors.conteudo ? "conteudo-error" : undefined
                     }
-                    aria-invalid={!!errors.descricao}
-                    aria-label="Descrição em markdown"
+                    aria-invalid={!!errors.conteudo}
+                    aria-label="Conteúdo em markdown"
                   />
                 ) : (
                   <div
-                    className={`${styles.previewPane} markdown-content`}
+                    className="min-h-[320px] p-6 bg-white markdown-content"
                     dangerouslySetInnerHTML={{ __html: renderPreview() }}
-                    aria-label="Prévia da descrição"
+                    aria-label="Prévia do conteúdo"
                   />
                 )}
 
-                <div className={styles.editorFooter}>
+                <div className="flex items-center justify-between px-3.5 py-1.5 bg-cream-200 border-t border-cream-300">
                   <span
-                    className={`${styles.charCount} ${charCount > 5000 ? styles.charWarn : ""}`}
+                    className={`text-[0.72rem] font-mono ${charCount > 5000 ? "text-red-600" : "text-green-300"}`}
                   >
                     {charCount} caracteres
                   </span>
-                  <span className={styles.editorHint}>Suporta markdown</span>
+                  <span className="text-[0.72rem] text-green-300">
+                    Suporta markdown
+                  </span>
                 </div>
               </div>
 
-              {errors.descricao && (
-                <p id="desc-error" className={styles.errorMsg} role="alert">
-                  <AlertSmallIcon /> {errors.descricao}
+              {errors.conteudo && (
+                <p
+                  id="conteudo-error"
+                  className="text-[0.8rem] text-red-600 mt-[0.4rem] flex items-center"
+                  role="alert"
+                >
+                  <AlertSmallIcon /> {errors.conteudo}
                 </p>
               )}
             </div>
 
             {/* Actions */}
-            <div className={styles.actions}>
-              <Link to="/" className={styles.cancelBtn}>
+            <div className="flex items-center justify-end gap-4 pt-6 border-t border-cream-200 mt-2">
+              <Link
+                to="/"
+                className="text-[0.9rem] text-green-400 px-5 py-2.5 rounded-full transition-colors hover:bg-cream-200 hover:text-green-700"
+              >
                 Cancelar
               </Link>
               <button
                 type="button"
-                className={styles.submitBtn}
+                className="flex items-center gap-2 bg-green-800 text-cream-100 border-none px-7 py-3 rounded-full text-[0.9rem] font-body font-normal transition-all hover:enabled:bg-green-600 hover:enabled:-translate-y-px disabled:opacity-65 disabled:cursor-not-allowed"
                 onClick={handleSubmit}
                 disabled={loading}
                 aria-busy={loading}
               >
                 {loading ? (
                   <>
-                    <span className={styles.spinner} aria-hidden="true" />
+                    <span
+                      className="w-[15px] h-[15px] border-2 border-white/30 border-t-white rounded-full animate-spin inline-block"
+                      aria-hidden="true"
+                    />
                     Salvando…
                   </>
                 ) : (

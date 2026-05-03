@@ -2,10 +2,16 @@ import { useState, useEffect, useCallback } from "react";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
+export interface Planta {
+  id: number;
+  nome: string;
+  conteudo: string;
+}
+
 export function usePlantas() {
-  const [plantas, setPlantas] = useState([]);
+  const [plantas, setPlantas] = useState<Planta[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchPlantas = useCallback(async () => {
     setLoading(true);
@@ -22,13 +28,11 @@ export function usePlantas() {
         throw new Error("Resposta da API em formato inesperado");
       }
       setPlantas(data);
-    } catch (err) {
+    } catch (err: any) {
       if (err.name === "TypeError" && err.message.includes("fetch")) {
-        setError(
-          "Não foi possível conectar ao servidor. Verifique se o backend está rodando em localhost:8080.",
-        );
+        setError("Não foi possível conectar ao servidor.");
       } else {
-        setError(err.message);
+        setError(err.message || "Erro desconhecido");
       }
     } finally {
       setLoading(false);
@@ -42,10 +46,10 @@ export function usePlantas() {
   return { plantas, loading, error, refetch: fetchPlantas };
 }
 
-export function usePlanta(id) {
-  const [planta, setPlanta] = useState(null);
+export function usePlanta(id: string | undefined) {
+  const [planta, setPlanta] = useState<Planta | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!id) return;
@@ -63,11 +67,11 @@ export function usePlanta(id) {
         return res.json();
       })
       .then((data) => setPlanta(data))
-      .catch((err) => {
+      .catch((err: any) => {
         if (err.name === "TypeError" && err.message.includes("fetch")) {
           setError("Não foi possível conectar ao servidor.");
         } else {
-          setError(err.message);
+          setError(err.message || "Erro desconhecido");
         }
       })
       .finally(() => setLoading(false));
@@ -76,8 +80,8 @@ export function usePlanta(id) {
   return { planta, loading, error };
 }
 
-export async function criarPlanta(dados: any) {
-  const errors: any = {};
+export async function criarPlanta(dados: { nome: string; conteudo: string }) {
+  const errors: { nome?: string; conteudo?: string } = {};
 
   if (!dados.nome || dados.nome.trim().length === 0) {
     errors.nome = "O nome é obrigatório";
@@ -87,10 +91,10 @@ export async function criarPlanta(dados: any) {
     errors.nome = "O nome deve ter no máximo 100 caracteres";
   }
 
-  if (!dados.descricao || dados.descricao.trim().length === 0) {
-    errors.descricao = "A descrição é obrigatória";
-  } else if (dados.descricao.trim().length < 10) {
-    errors.descricao = "A descrição deve ter ao menos 10 caracteres";
+  if (!dados.conteudo || dados.conteudo.trim().length === 0) {
+    errors.conteudo = "O conteúdo é obrigatório";
+  } else if (dados.conteudo.trim().length < 10) {
+    errors.conteudo = "O conteúdo deve ter ao menos 10 caracteres";
   }
 
   if (Object.keys(errors).length > 0) {
@@ -105,7 +109,7 @@ export async function criarPlanta(dados: any) {
     },
     body: JSON.stringify({
       nome: dados.nome.trim(),
-      descricao: dados.descricao.trim(),
+      conteudo: dados.conteudo.trim(),
     }),
   });
 
