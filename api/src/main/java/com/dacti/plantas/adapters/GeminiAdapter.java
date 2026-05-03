@@ -11,8 +11,13 @@ import com.dacti.plantas.ports.AIPort;
 
 @Component("gemini")
 public class GeminiAdapter implements AIPort {
-    private AIProperties aiProps;
-    private WebClient.Builder webClientBuilder;
+    private final AIProperties aiProps;
+    private final WebClient.Builder webClientBuilder;
+
+    public GeminiAdapter(AIProperties aiProps, WebClient.Builder webClientBuilder) {
+        this.aiProps = aiProps;
+        this.webClientBuilder = webClientBuilder;
+    }
 
     @Override
     public String analisar(String prompt){

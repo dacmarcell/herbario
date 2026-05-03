@@ -11,8 +11,13 @@ import com.dacti.plantas.ports.AIPort;
 
 @Component("groq")
 public class GroqAdapter implements AIPort{
-    private AIProperties aiProps;
-    private WebClient.Builder webClientBuilder;
+    private final AIProperties aiProps;
+    private final WebClient.Builder webClientBuilder;
+
+    public GroqAdapter(AIProperties aiProps, WebClient.Builder webClientBuilder){
+        this.aiProps = aiProps;
+        this.webClientBuilder = webClientBuilder;
+    }
 
     @Override
     public String analisar(String prompt){
@@ -24,7 +29,7 @@ public class GroqAdapter implements AIPort{
                 Map.of("role", "user", "content", prompt)
             )
         );
-
+        
         return webClientBuilder.build()
             .post()
             .uri(props.getBaseUrl() + "/chat/completions")

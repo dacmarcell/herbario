@@ -25,3 +25,14 @@ Content-Type: application/json
 
 ### Deletar planta
 DELETE http://localhost:8080/plantas/1
+
+# AI
+
+### Analisar planta
+POST http://localhost:8080/ai
+Content-Type: application/json
+
+{
+    "nomes": ["Alecrim", "Boldo", "Manjericão"],
+    "intencao": "Banho de descarrego"
+}
