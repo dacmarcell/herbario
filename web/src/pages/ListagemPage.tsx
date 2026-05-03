@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { usePlantas } from "../hooks/usePlantas";
@@ -8,6 +8,10 @@ export default function ListagemPage() {
   const { plantas, loading, error, refetch } = usePlantas();
   const [busca, setBusca] = useState("");
   const [ordem, setOrdem] = useState("az");
+  
+  // Pagination states
+  const [pagina, setPagina] = useState(1);
+  const itensPorPagina = 12;
 
   const plantasFiltradas = useMemo(() => {
     let lista = [...plantas];
@@ -33,6 +37,18 @@ export default function ListagemPage() {
 
     return lista;
   }, [plantas, busca, ordem]);
+
+  const totalPaginas = Math.ceil(plantasFiltradas.length / itensPorPagina);
+
+  const plantasPaginadas = useMemo(() => {
+    const inicio = (pagina - 1) * itensPorPagina;
+    return plantasFiltradas.slice(inicio, inicio + itensPorPagina);
+  }, [plantasFiltradas, pagina]);
+
+  // Reset page when search or sort changes
+  useEffect(() => {
+    setPagina(1);
+  }, [busca, ordem]);
 
   return (
     <div className="min-h-screen flex flex-col bg-cream-100">
@@ -185,15 +201,24 @@ export default function ListagemPage() {
 
             {!loading && !error && plantasFiltradas.length > 0 && (
               <>
-                <div className="text-[0.8rem] text-green-400 mb-6 font-normal tracking-wide">
-                  <span>
-                    {plantasFiltradas.length === plantas.length
-                      ? `${plantas.length} ${plantas.length === 1 ? "registro" : "registros"}`
-                      : `${plantasFiltradas.length} de ${plantas.length} registros`}
-                  </span>
+                <div className="flex items-center justify-between mb-6">
+                  <div className="text-[0.8rem] text-green-400 font-normal tracking-wide">
+                    <span>
+                      {plantasFiltradas.length === plantas.length
+                        ? `${plantas.length} ${plantas.length === 1 ? "registro" : "registros"}`
+                        : `${plantasFiltradas.length} de ${plantas.length} registros`}
+                    </span>
+                  </div>
+                  
+                  {totalPaginas > 1 && (
+                    <div className="text-[0.8rem] text-green-600 font-medium">
+                      Página {pagina} de {totalPaginas}
+                    </div>
+                  )}
                 </div>
+
                 <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-5">
-                  {plantasFiltradas.map((planta, idx) => (
+                  {plantasPaginadas.map((planta, idx) => (
                     <PlantCard
                       key={planta.id || idx}
                       planta={planta}
@@ -201,6 +226,53 @@ export default function ListagemPage() {
                     />
                   ))}
                 </div>
+
+                {/* Pagination Controls */}
+                {totalPaginas > 1 && (
+                  <div className="flex items-center justify-center gap-4 mt-12 pt-8 border-t border-cream-300">
+                    <button
+                      onClick={() => setPagina((p) => Math.max(1, p - 1))}
+                      disabled={pagina === 1}
+                      className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all flex items-center gap-2 ${
+                        pagina === 1
+                          ? "text-cream-400 cursor-not-allowed"
+                          : "text-green-800 bg-white border border-cream-300 hover:border-green-400 hover:shadow-sm active:translate-y-0.5"
+                      }`}
+                    >
+                      <span className="rotate-180"><ArrowIcon /></span>
+                      Anterior
+                    </button>
+                    
+                    <div className="flex items-center gap-2">
+                      {Array.from({ length: totalPaginas }, (_, i) => i + 1).map((n) => (
+                        <button
+                          key={n}
+                          onClick={() => setPagina(n)}
+                          className={`w-10 h-10 rounded-full text-sm font-medium transition-all ${
+                            pagina === n
+                              ? "bg-green-900 text-cream-100 shadow-md scale-110"
+                              : "text-green-700 hover:bg-green-50"
+                          }`}
+                        >
+                          {n}
+                        </button>
+                      ))}
+                    </div>
+
+                    <button
+                      onClick={() => setPagina((p) => Math.min(totalPaginas, p + 1))}
+                      disabled={pagina === totalPaginas}
+                      className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all flex items-center gap-2 ${
+                        pagina === totalPaginas
+                          ? "text-cream-400 cursor-not-allowed"
+                          : "text-green-800 bg-white border border-cream-300 hover:border-green-400 hover:shadow-sm active:translate-y-0.5"
+                      }`}
+                    >
+                      Próxima
+                      <ArrowIcon />
+                    </button>
+                  </div>
+                )}
               </>
             )}
           </div>

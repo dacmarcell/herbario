@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo, useEffect } from "react";
 import NavBar from "../components/NavBar";
 import { usePlantas } from "../hooks/usePlantas";
 import ReactMarkdown from "react-markdown";
@@ -17,6 +17,29 @@ export default function BanhoPage() {
   const [loadingAi, setLoadingAi] = useState(false);
   const [result, setResult] = useState<string | null>(null);
   const [errorAi, setErrorAi] = useState<string | null>(null);
+
+  // Search and Pagination states
+  const [busca, setBusca] = useState("");
+  const [pagina, setPagina] = useState(1);
+  const itensPorPagina = 10;
+
+  const plantasFiltradas = useMemo(() => {
+    return plantas.filter((p) =>
+      p.nome?.toLowerCase().includes(busca.toLowerCase().trim()),
+    );
+  }, [plantas, busca]);
+
+  const totalPaginas = Math.ceil(plantasFiltradas.length / itensPorPagina);
+
+  const plantasPaginadas = useMemo(() => {
+    const inicio = (pagina - 1) * itensPorPagina;
+    return plantasFiltradas.slice(inicio, inicio + itensPorPagina);
+  }, [plantasFiltradas, pagina]);
+
+  // Reset page when search changes
+  useEffect(() => {
+    setPagina(1);
+  }, [busca]);
 
   const handleTogglePlant = (nome: string) => {
     setSelectedPlants((prev) =>
@@ -108,9 +131,23 @@ export default function BanhoPage() {
                 </div>
               ) : (
                 <div className="bg-white border border-cream-300 rounded-2xl p-8 shadow-sm">
-                  <h2 className="font-display text-xl text-green-900 mb-6">
-                    1. Selecione as Plantas
-                  </h2>
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
+                    <h2 className="font-display text-xl text-green-900 whitespace-nowrap">
+                      1. Selecione as Plantas
+                    </h2>
+
+                    {/* Search Input */}
+                    <div className="flex items-center gap-2 bg-cream-50 border border-cream-300 rounded-full px-4 py-2 flex-1 max-w-xs transition-all focus-within:border-green-400 focus-within:ring-4 focus-within:ring-green-400/5">
+                      <SearchIcon />
+                      <input
+                        type="text"
+                        placeholder="Filtrar plantas..."
+                        value={busca}
+                        onChange={(e) => setBusca(e.target.value)}
+                        className="bg-transparent border-none outline-none text-sm text-green-900 placeholder:text-green-300 w-full"
+                      />
+                    </div>
+                  </div>
 
                   {loadingPlantas ? (
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -124,30 +161,74 @@ export default function BanhoPage() {
                   ) : errorPlantas ? (
                     <p className="text-red-500 text-sm">{errorPlantas}</p>
                   ) : (
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                      {plantas.map((planta) => (
-                        <button
-                          key={planta.id}
-                          onClick={() => handleTogglePlant(planta.nome)}
-                          className={`flex items-center gap-2 px-4 py-3 rounded-xl border text-sm transition-all text-left ${
-                            selectedPlants.includes(planta.nome)
-                              ? "bg-green-900 border-green-900 text-cream-100 shadow-md"
-                              : "bg-cream-50 border-cream-300 text-green-800 hover:border-green-400"
-                          }`}
-                        >
-                          <div
-                            className={`w-2 h-2 rounded-full ${selectedPlants.includes(planta.nome) ? "bg-green-300" : "bg-green-200"}`}
-                          />
-                          <span className="truncate">{planta.nome}</span>
-                        </button>
-                      ))}
-                    </div>
-                  )}
+                    <>
+                      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                        {plantasPaginadas.map((planta) => (
+                          <button
+                            key={planta.id}
+                            onClick={() => handleTogglePlant(planta.nome)}
+                            className={`flex items-center gap-2 px-4 py-3 rounded-xl border text-sm transition-all text-left group ${
+                              selectedPlants.includes(planta.nome)
+                                ? "bg-green-900 border-green-900 text-cream-100 shadow-md"
+                                : "bg-cream-50 border-cream-300 text-green-800 hover:border-green-400"
+                            }`}
+                          >
+                            <div
+                              className={`w-2 h-2 rounded-full transition-colors ${
+                                selectedPlants.includes(planta.nome)
+                                  ? "bg-green-300"
+                                  : "bg-green-200 group-hover:bg-green-400"
+                              }`}
+                            />
+                            <span className="truncate">{planta.nome}</span>
+                          </button>
+                        ))}
+                      </div>
 
-                  {plantas.length === 0 && !loadingPlantas && (
-                    <p className="text-green-500 text-center py-8 italic">
-                      Nenhuma planta cadastrada no catálogo.
-                    </p>
+                      {plantasFiltradas.length === 0 && (
+                        <p className="text-green-500 text-center py-8 italic">
+                          {busca
+                            ? "Nenhuma planta encontrada para esta busca."
+                            : "Nenhuma planta cadastrada no catálogo."}
+                        </p>
+                      )}
+
+                      {/* Pagination Controls */}
+                      {totalPaginas > 1 && (
+                        <div className="flex items-center justify-center gap-4 mt-8 pt-6 border-t border-cream-100">
+                          <button
+                            onClick={() =>
+                              setPagina((p) => Math.max(1, p - 1))
+                            }
+                            disabled={pagina === 1}
+                            className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                              pagina === 1
+                                ? "text-cream-400 cursor-not-allowed"
+                                : "text-green-700 hover:bg-green-50"
+                            }`}
+                          >
+                            Anterior
+                          </button>
+                          <span className="text-sm text-green-600 font-body">
+                            Página <strong>{pagina}</strong> de{" "}
+                            <strong>{totalPaginas}</strong>
+                          </span>
+                          <button
+                            onClick={() =>
+                              setPagina((p) => Math.min(totalPaginas, p + 1))
+                            }
+                            disabled={pagina === totalPaginas}
+                            className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                              pagina === totalPaginas
+                                ? "text-cream-400 cursor-not-allowed"
+                                : "text-green-700 hover:bg-green-50"
+                            }`}
+                          >
+                            Próxima
+                          </button>
+                        </div>
+                      )}
+                    </>
                   )}
                 </div>
               )}
@@ -200,6 +281,14 @@ export default function BanhoPage() {
                   )}
                 </div>
 
+                {/* Selected Count */}
+                <div className="mt-6 pt-6 border-t border-green-800 flex justify-between items-center text-xs text-green-400">
+                  <span>Plantas selecionadas:</span>
+                  <span className="text-green-300 font-bold">
+                    {selectedPlants.length}
+                  </span>
+                </div>
+
                 {/* Decoration */}
                 <div className="absolute -bottom-6 -right-6 w-24 h-24 text-green-800 opacity-20 pointer-events-none">
                   <BigLeafIcon />
@@ -221,6 +310,26 @@ export default function BanhoPage() {
         </div>
       </footer>
     </div>
+  );
+}
+
+function SearchIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 16 16"
+      fill="none"
+      className="text-green-300"
+    >
+      <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.4" />
+      <path
+        d="M11 11L14 14"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+      />
+    </svg>
   );
 }
 
