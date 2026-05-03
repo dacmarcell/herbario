@@ -15,6 +15,7 @@ export default function DetalhePage() {
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
+  const [showPreview, setShowPreview] = useState(false);
 
   // Sync edit states when planta is loaded
   useEffect(() => {
@@ -131,22 +132,56 @@ export default function DetalhePage() {
           <div className="container grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12 items-start">
             {/* Main article */}
             <article className="animate-fadeUp w-full">
-              <div className="flex items-center gap-[10px] mb-8">
-                <LeafSmallIcon />
-                <h2 className="font-display text-[1.1rem] font-medium text-green-600 lowercase tracking-wider">
-                  {isEditing ? "Editar Conteúdo" : "Conteúdo"}
-                </h2>
+              <div className="flex items-center gap-4 mb-8">
+                <div className="flex items-center gap-[10px]">
+                  <LeafSmallIcon />
+                  <h2 className="font-display text-[1.1rem] font-medium text-green-600 lowercase tracking-wider">
+                    {isEditing ? "Editar Conteúdo" : "Conteúdo"}
+                  </h2>
+                </div>
+
+                {isEditing && (
+                  <div className="flex bg-cream-200 p-1 rounded-lg">
+                    <button
+                      onClick={() => setShowPreview(false)}
+                      className={`px-4 py-1.5 rounded-md text-[0.75rem] font-medium transition-all ${
+                        !showPreview
+                          ? "bg-white text-green-900 shadow-sm"
+                          : "text-green-600 hover:text-green-800"
+                      }`}
+                    >
+                      Escrever
+                    </button>
+                    <button
+                      onClick={() => setShowPreview(true)}
+                      className={`px-4 py-1.5 rounded-md text-[0.75rem] font-medium transition-all ${
+                        showPreview
+                          ? "bg-white text-green-900 shadow-sm"
+                          : "text-green-600 hover:text-green-800"
+                      }`}
+                    >
+                      Visualizar
+                    </button>
+                  </div>
+                )}
                 <div className="flex-1 h-px bg-cream-300" />
               </div>
 
               {isEditing ? (
                 <div className="space-y-4">
-                  <textarea
-                    value={editConteudo}
-                    onChange={(e) => setEditConteudo(e.target.value)}
-                    className="w-full h-[400px] bg-white border border-cream-300 rounded-lg p-6 sm:p-10 font-body text-[1rem] text-green-900 outline-none focus:border-green-400 transition-colors shadow-inner resize-none"
-                    placeholder="Conteúdo botânico (Markdown suportado)..."
-                  />
+                  {!showPreview ? (
+                    <textarea
+                      value={editConteudo}
+                      onChange={(e) => setEditConteudo(e.target.value)}
+                      className="w-full h-[400px] bg-white border border-cream-300 rounded-lg p-6 sm:p-10 font-body text-[1rem] text-green-900 outline-none focus:border-green-400 transition-colors shadow-inner resize-none"
+                      placeholder="Conteúdo botânico (Markdown suportado)..."
+                    />
+                  ) : (
+                    <div className="animate-fadeIn">
+                       <MarkdownContent content={editConteudo} />
+                    </div>
+                  )}
+
                   {serverError && (
                     <p className="text-red-500 text-sm italic">{serverError}</p>
                   )}
