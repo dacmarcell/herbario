@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dacti.plantas.models.AI;
 import com.dacti.plantas.models.Planta;
 import com.dacti.plantas.ports.AIPort;
 import com.dacti.plantas.repositories.PlantaRepository;
@@ -27,7 +26,8 @@ public class AIController {
     @PostMapping("/{planta_id}")
     public String analisar(@PathVariable Long planta_id) {
         Planta planta = plantaRepository.findById(planta_id).orElseThrow(() -> new RuntimeException("Planta não encontrada com o ID: " + planta_id));
-        String conteudoGerado = aiPort.analisar(planta.getNome());
+        String prompt = "Analise essa planta: " + planta.getNome();
+        String conteudoGerado = aiPort.analisar(prompt);
         return conteudoGerado;
     }
 }
