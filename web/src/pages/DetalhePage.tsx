@@ -16,6 +16,7 @@ export default function DetalhePage() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
   const [showPreview, setShowPreview] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   // Sync edit states when planta is loaded
   useEffect(() => {
@@ -49,9 +50,7 @@ export default function DetalhePage() {
     setIsSaving(false);
   };
 
-  const handleDelete = async () => {
-    if (!window.confirm("Tem certeza que deseja apagar esta folha?")) return;
-
+  const confirmDelete = async () => {
     setIsDeleting(true);
     const res = await apagarPlanta(planta.id);
 
@@ -60,6 +59,7 @@ export default function DetalhePage() {
     } else {
       setServerError(res.serverError || "Erro ao apagar");
       setIsDeleting(false);
+      setShowDeleteModal(false);
     }
   };
 
@@ -226,7 +226,7 @@ export default function DetalhePage() {
                         <EditIcon /> Editar Folha
                       </button>
                       <button
-                        onClick={handleDelete}
+                        onClick={() => setShowDeleteModal(true)}
                         disabled={isDeleting}
                         className="flex items-center justify-center gap-2 w-full py-3 rounded-lg border border-red-100 text-red-500 text-sm font-medium transition-all hover:bg-red-50 hover:border-red-200 disabled:opacity-50"
                       >
@@ -295,6 +295,15 @@ export default function DetalhePage() {
           <p>Herbário — Catálogo Botânico</p>
         </div>
       </footer>
+
+      {showDeleteModal && (
+        <DeleteConfirmationModal
+          onConfirm={confirmDelete}
+          onCancel={() => setShowDeleteModal(false)}
+          isDeleting={isDeleting}
+          plantaNome={planta.nome}
+        />
+      )}
     </div>
   );
 }
@@ -694,6 +703,79 @@ function TrashIcon() {
         d="M2.5 3.5H11.5M4.5 3.5V2.5C4.5 1.94772 4.94772 1.5 5.5 1.5H8.5C9.05228 1.5 9.5 1.94772 9.5 2.5V3.5M5.5 6.5V10.5M8.5 6.5V10.5M3.5 3.5V11.5C3.5 12.0523 3.94772 12.5 4.5 12.5H9.5C10.0523 12.5 10.5 12.0523 10.5 11.5V3.5"
         stroke="currentColor"
         strokeWidth="1.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+// ── New Modal Component ─────────────────────────────
+
+function DeleteConfirmationModal({
+  onConfirm,
+  onCancel,
+  isDeleting,
+  plantaNome,
+}: {
+  onConfirm: () => void;
+  onCancel: () => void;
+  isDeleting: boolean;
+  plantaNome: string;
+}) {
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 animate-fadeIn">
+      <div
+        className="absolute inset-0 bg-green-950/40 backdrop-blur-sm"
+        onClick={onCancel}
+      />
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-[400px] relative z-10 overflow-hidden animate-scaleIn border border-cream-200">
+        <div className="bg-red-50 p-8 flex flex-col items-center text-center gap-4">
+          <div className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center text-red-600 mb-2">
+            <TrashIconLarge />
+          </div>
+          <h2 className="font-display text-[1.5rem] font-medium text-red-900 leading-tight">
+            Excluir registro?
+          </h2>
+          <p className="text-[0.95rem] text-red-700/70 leading-relaxed">
+            Você está prestes a apagar <strong>"{plantaNome}"</strong>. Esta ação não poderá ser desfeita.
+          </p>
+        </div>
+        <div className="p-6 flex flex-col gap-3 bg-white">
+          <button
+            onClick={onConfirm}
+            disabled={isDeleting}
+            className="w-full bg-red-600 text-white py-3.5 rounded-xl font-medium transition-all hover:bg-red-700 active:scale-[0.98] disabled:opacity-50"
+          >
+            {isDeleting ? "Apagando..." : "Sim, excluir permanentemente"}
+          </button>
+          <button
+            onClick={onCancel}
+            disabled={isDeleting}
+            className="w-full bg-cream-100 text-green-900 py-3.5 rounded-xl font-medium transition-all hover:bg-cream-200 active:scale-[0.98] disabled:opacity-50"
+          >
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TrashIconLarge() {
+  return (
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+      <path
+        d="M3 6H21M19 6V20C19 21.1046 18.1046 22 17 22H7C5.89543 22 5 21.1046 5 20V6M8 6V4C8 2.89543 8.89543 2 10 2H14C15.1046 2 16 2.89543 16 4V6"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M10 11V17M14 11V17"
+        stroke="currentColor"
+        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
