@@ -38,6 +38,8 @@ public class AIController {
             String.join(", ", analise.nomes())
         );
 
+        System.out.println("DEBUG: Prompt enviado para a AI: " + prompt);
+
         String conteudoGerado = aiPort.analisar(prompt);
         return conteudoGerado;
     }
