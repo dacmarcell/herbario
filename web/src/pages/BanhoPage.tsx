@@ -236,7 +236,9 @@ export default function BanhoPage() {
             <div className="space-y-6 order-1 md:order-2 sticky top-24">
               <div className="bg-green-900 text-cream-100 rounded-2xl p-6 shadow-xl relative overflow-hidden">
                 <div className="relative z-10">
-                  <h2 className="font-display text-xl mb-4">2. Sua Intenção</h2>
+                  <h2 className="font-display text-xl mb-4 text-white">
+                    2. Sua Intenção
+                  </h2>
                   <textarea
                     value={intencao}
                     onChange={(e) => setIntencao(e.target.value)}
