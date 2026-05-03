@@ -19,11 +19,14 @@ O **Herbário** é uma plataforma digital projetada para catalogar e gerenciar i
 - **Visualização**: Grade (Grid) de cards responsivos com prévia do conteúdo.
 - **Busca**: Filtro por nome ou conteúdo textual em tempo real.
 - **Ordenação**: Opções de A-Z, Z-A, Mais Recentes e Mais Antigos.
+- **Paginação**: Divisão por páginas (12 itens/pág) para otimizar performance e layout.
 - **Contagem**: Indicador de total de espécies registradas e filtradas.
 
 ### 4.2. Detalhes da Folha
 - **Renderização**: Conversão de Markdown para HTML estilizado.
 - **Ficha Técnica**: Exibição de metadados como ID, Nome e extensão do conteúdo.
+- **Gerenciamento**: Possibilidade de editar (nome/conteudo) e apagar o registro diretamente na página.
+- **Confirmação**: Uso de modais customizados para ações críticas (exclusão).
 - **Navegação**: Breadcrumbs para retorno fácil ao catálogo.
 
 ### 4.3. Registro (Criação)
@@ -31,6 +34,12 @@ O **Herbário** é uma plataforma digital projetada para catalogar e gerenciar i
 - **Editor**: Textarea com atalhos para Markdown (Negrito, Itálico, Títulos, Listas, Links).
 - **Preview**: Visualização em tempo real do conteúdo formatado.
 - **Validação**: Verificação de campos obrigatórios e tamanhos mínimos/máximos.
+
+### 4.4. Alquimia Botânica (Sugestões de Banho)
+- **Seleção**: Interface para escolher múltiplas plantas do catálogo.
+- **Busca & Filtro**: Localização rápida de plantas na área de seleção.
+- **Intenção**: Campo de texto para o usuário descrever o propósito do ritual.
+- **Integração IA**: Processamento via Groq Cloud (Llama 3) para gerar sugestões personalizadas em Markdown.
 
 ## 5. Requisitos Não-Funcionais
 
@@ -56,3 +65,6 @@ O **Herbário** é uma plataforma digital projetada para catalogar e gerenciar i
 - [x] Unificação do campo de texto de `descricao` para `conteudo` em todo o sistema (API e Web).
 - [x] Implementação de editor Markdown customizado sem dependências externas pesadas.
 - [x] Configuração de ambiente multi-container para paridade entre desenvolvimento e produção.
+- [x] Sistema de Paginação inteligente no catálogo principal e na área de banhos.
+- [x] Módulo de Alquimia Botânica integrado com IA para sugestões de rituais.
+- [x] Implementação de CRUD completo (Edição e Exclusão) com modais premium e preview de Markdown.
