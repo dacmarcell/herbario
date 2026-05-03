@@ -162,7 +162,7 @@ export default function BanhoPage() {
                     <p className="text-red-500 text-sm">{errorPlantas}</p>
                   ) : (
                     <>
-                      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-3">
                         {plantasPaginadas.map((planta) => (
                           <button
                             key={planta.id}
@@ -197,9 +197,7 @@ export default function BanhoPage() {
                       {totalPaginas > 1 && (
                         <div className="flex items-center justify-center gap-4 mt-8 pt-6 border-t border-cream-100">
                           <button
-                            onClick={() =>
-                              setPagina((p) => Math.max(1, p - 1))
-                            }
+                            onClick={() => setPagina((p) => Math.max(1, p - 1))}
                             disabled={pagina === 1}
                             className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                               pagina === 1
