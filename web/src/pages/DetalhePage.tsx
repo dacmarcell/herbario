@@ -1,6 +1,6 @@
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { usePlanta } from "../hooks/usePlantas";
+import { usePlanta, atualizarPlanta, apagarPlanta } from "../hooks/usePlantas";
 import NavBar from "../components/NavBar";
 
 export default function DetalhePage() {
@@ -8,9 +8,59 @@ export default function DetalhePage() {
   const navigate = useNavigate();
   const { planta, loading, error } = usePlanta(id);
 
+  // Edit states
+  const [isEditing, setIsEditing] = useState(false);
+  const [editNome, setEditNome] = useState("");
+  const [editConteudo, setEditConteudo] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
+
+  // Sync edit states when planta is loaded
+  useEffect(() => {
+    if (planta) {
+      setEditNome(planta.nome || "");
+      setEditConteudo(planta.conteudo || "");
+    }
+  }, [planta]);
+
   if (loading) return <LoadingView />;
   if (error) return <ErrorView error={error} onBack={() => navigate("/")} />;
   if (!planta) return null;
+
+  const handleSave = async () => {
+    if (!editNome.trim() || !editConteudo.trim()) return;
+
+    setIsSaving(true);
+    setServerError(null);
+
+    const res = await atualizarPlanta(planta.id, {
+      nome: editNome.trim(),
+      conteudo: editConteudo.trim(),
+    });
+
+    if (res.success) {
+      setIsEditing(false);
+      window.location.reload(); // Refresh to show updated data
+    } else {
+      setServerError(res.serverError || "Erro ao atualizar");
+    }
+    setIsSaving(false);
+  };
+
+  const handleDelete = async () => {
+    if (!window.confirm("Tem certeza que deseja apagar esta folha?")) return;
+
+    setIsDeleting(true);
+    const res = await apagarPlanta(planta.id);
+
+    if (res.success) {
+      navigate("/");
+    } else {
+      setServerError(res.serverError || "Erro ao apagar");
+      setIsDeleting(false);
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-cream-100">
@@ -28,7 +78,7 @@ export default function DetalhePage() {
             /
           </span>
           <span className="text-[0.78rem] text-green-200 max-w-[280px] overflow-hidden text-ellipsis whitespace-nowrap">
-            {planta.nome}
+            {isEditing ? "Editando..." : planta.nome}
           </span>
         </div>
       </div>
@@ -44,17 +94,29 @@ export default function DetalhePage() {
           </div>
 
           <div className="container relative z-10 grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-8 items-center pt-12">
-            <div className="">
+            <div className="w-full">
               <div className="inline-flex items-center bg-white/10 border border-white/10 rounded-full px-3 py-1 mb-5">
                 <span className="text-[0.72rem] font-mono text-green-200 tracking-widest">
                   #{String(planta.id || "").padStart(3, "0")}
                 </span>
               </div>
-              <h1 className="font-display text-[clamp(2.25rem,5vw,4rem)] font-normal text-cream-100 leading-[1.1] tracking-tight mb-4">
-                {planta.nome}
-              </h1>
+              
+              {isEditing ? (
+                <input
+                  type="text"
+                  value={editNome}
+                  onChange={(e) => setEditNome(e.target.value)}
+                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-cream-100 font-display text-[clamp(2.25rem,5vw,4rem)] font-normal outline-none focus:border-green-400 transition-colors mb-4"
+                  placeholder="Nome da folha..."
+                />
+              ) : (
+                <h1 className="font-display text-[clamp(2.25rem,5vw,4rem)] font-normal text-cream-100 leading-[1.1] tracking-tight mb-4">
+                  {planta.nome}
+                </h1>
+              )}
+              
               <p className="text-[0.9rem] text-green-300 italic font-display">
-                Folha registrada no catálogo botânico
+                {isEditing ? "Editando registro botânico" : "Folha registrada no catálogo botânico"}
               </p>
             </div>
 
@@ -68,21 +130,84 @@ export default function DetalhePage() {
         <section className="flex-1 py-12 pb-20">
           <div className="container grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12 items-start">
             {/* Main article */}
-            <article className="animate-fadeUp">
+            <article className="animate-fadeUp w-full">
               <div className="flex items-center gap-[10px] mb-8">
                 <LeafSmallIcon />
                 <h2 className="font-display text-[1.1rem] font-medium text-green-600 lowercase tracking-wider">
-                  Conteúdo
+                  {isEditing ? "Editar Conteúdo" : "Conteúdo"}
                 </h2>
                 <div className="flex-1 h-px bg-cream-300" />
               </div>
 
-              <MarkdownContent content={planta.conteudo} />
+              {isEditing ? (
+                <div className="space-y-4">
+                  <textarea
+                    value={editConteudo}
+                    onChange={(e) => setEditConteudo(e.target.value)}
+                    className="w-full h-[400px] bg-white border border-cream-300 rounded-lg p-6 sm:p-10 font-body text-[1rem] text-green-900 outline-none focus:border-green-400 transition-colors shadow-inner resize-none"
+                    placeholder="Conteúdo botânico (Markdown suportado)..."
+                  />
+                  {serverError && (
+                    <p className="text-red-500 text-sm italic">{serverError}</p>
+                  )}
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={handleSave}
+                      disabled={isSaving}
+                      className="bg-green-800 text-cream-100 px-8 py-3 rounded-full font-medium transition-all hover:bg-green-700 disabled:opacity-50"
+                    >
+                      {isSaving ? "Salvando..." : "Salvar alterações"}
+                    </button>
+                    <button
+                      onClick={() => {
+                        setIsEditing(false);
+                        setEditNome(planta.nome);
+                        setEditConteudo(planta.conteudo);
+                      }}
+                      className="text-green-600 px-6 py-3 rounded-full font-medium transition-all hover:bg-cream-200"
+                    >
+                      Cancelar
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <MarkdownContent content={planta.conteudo} />
+              )}
             </article>
 
             {/* Sidebar info */}
             <aside className="flex flex-col gap-4 lg:sticky lg:top-[100px] animate-fadeUp [animation-delay:0.1s]">
-              <div className="bg-white border border-cream-300 rounded-lg p-6">
+              <div className="bg-white border border-cream-300 rounded-lg p-6 shadow-sm">
+                <h3 className="font-display text-[1.1rem] font-medium text-green-700 mb-5 pb-3 border-b border-cream-200">
+                  Ações
+                </h3>
+                <div className="flex flex-col gap-3">
+                  {!isEditing && (
+                    <>
+                      <button
+                        onClick={() => setIsEditing(true)}
+                        className="flex items-center justify-center gap-2 w-full py-3 rounded-lg border border-green-200 text-green-700 text-sm font-medium transition-all hover:bg-green-50 hover:border-green-300"
+                      >
+                        <EditIcon /> Editar Folha
+                      </button>
+                      <button
+                        onClick={handleDelete}
+                        disabled={isDeleting}
+                        className="flex items-center justify-center gap-2 w-full py-3 rounded-lg border border-red-100 text-red-500 text-sm font-medium transition-all hover:bg-red-50 hover:border-red-200 disabled:opacity-50"
+                      >
+                        <TrashIcon /> {isDeleting ? "Apagando..." : "Excluir Registro"}
+                      </button>
+                    </>
+                  )}
+                  {isEditing && (
+                     <p className="text-xs text-green-400 italic text-center">
+                        Você está no modo de edição. Salve as alterações para visualizar o resultado.
+                     </p>
+                  )}
+                </div>
+              </div>
+
+              <div className="bg-white border border-cream-300 rounded-lg p-6 shadow-sm">
                 <h3 className="font-display text-[1.1rem] font-medium text-green-700 mb-5 pb-3 border-b border-cream-200">
                   Ficha técnica
                 </h3>
@@ -130,7 +255,7 @@ export default function DetalhePage() {
         </section>
       </main>
 
-      <footer className="bg-green-950 text-green-400 text-[0.78rem] text-center py-6 tracking-widest">
+      <footer className="bg-green-950 text-green-400 text-[0.78rem] text-center py-8 tracking-widest mt-auto">
         <div className="container">
           <p>Herbário — Catálogo Botânico</p>
         </div>
@@ -507,6 +632,35 @@ function PlusCircleIcon() {
         stroke="currentColor"
         strokeWidth="1.3"
         strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function EditIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <path
+        d="M10.5 1.5L12.5 3.5L4.5 11.5L1.5 12.5L2.5 9.5L10.5 1.5Z"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function TrashIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <path
+        d="M2.5 3.5H11.5M4.5 3.5V2.5C4.5 1.94772 4.94772 1.5 5.5 1.5H8.5C9.05228 1.5 9.5 1.94772 9.5 2.5V3.5M5.5 6.5V10.5M8.5 6.5V10.5M3.5 3.5V11.5C3.5 12.0523 3.94772 12.5 4.5 12.5H9.5C10.0523 12.5 10.5 12.0523 10.5 11.5V3.5"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

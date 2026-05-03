@@ -125,3 +125,44 @@ export async function criarPlanta(dados: { nome: string; conteudo: string }) {
   const created = await response.json();
   return { success: true, data: created };
 }
+
+export async function atualizarPlanta(
+  id: number,
+  dados: { nome?: string; conteudo?: string },
+) {
+  const response = await fetch(`${API_BASE}/plantas/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify(dados),
+  });
+
+  if (!response.ok) {
+    const body = await response.json().catch(() => ({}));
+    return {
+      success: false,
+      serverError:
+        body.message || `Erro ${response.status}: ${response.statusText}`,
+    };
+  }
+
+  const updated = await response.json();
+  return { success: true, data: updated };
+}
+
+export async function apagarPlanta(id: number) {
+  const response = await fetch(`${API_BASE}/plantas/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    return {
+      success: false,
+      serverError: `Erro ${response.status}: ${response.statusText}`,
+    };
+  }
+
+  return { success: true };
+}
