@@ -1,7 +1,11 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
-import { criarPlanta } from "../hooks/usePlantas";
+import {
+  criarPlanta,
+  buscarPlantasPorNome,
+  type Planta,
+} from "../hooks/usePlantas";
 
 // Simple markdown editor without external dependency
 // Uses a textarea with markdown shortcuts and preview
@@ -15,6 +19,29 @@ export default function CriacaoPage() {
   const [tab, setTab] = useState("escrever"); // 'escrever' | 'preview'
   const [touched, setTouched] = useState<any>({});
   const textareaRef = useRef<any>(null);
+  const [sugestoes, setSugestoes] = useState<Planta[]>([]);
+  const [buscando, setBuscando] = useState(false);
+
+  // Debounced search for similar plant names
+  useEffect(() => {
+    const timeoutId = setTimeout(async () => {
+      if (nome.trim().length >= 3) {
+        setBuscando(true);
+        try {
+          const resultados = await buscarPlantasPorNome(nome.trim());
+          setSugestoes(resultados);
+        } catch (err) {
+          setSugestoes([]);
+        } finally {
+          setBuscando(false);
+        }
+      } else {
+        setSugestoes([]);
+      }
+    }, 500);
+
+    return () => clearTimeout(timeoutId);
+  }, [nome]);
 
   const validateField = (field: string, value: string) => {
     if (field === "nome") {
@@ -266,6 +293,39 @@ export default function CriacaoPage() {
                   role="alert"
                 >
                   <AlertSmallIcon /> {errors.nome}
+                </p>
+              )}
+
+              {/* Search suggestions */}
+              {sugestoes.length > 0 && (
+                <div className="mt-3 p-3 bg-amber-50 border border-amber-200 rounded-md">
+                  <p className="text-[0.8rem] text-amber-800 font-medium mb-2 flex items-center gap-1.5">
+                    <InfoIcon />
+                    Folhas semelhantes já cadastradas:
+                  </p>
+                  <ul className="list-none flex flex-col gap-1.5">
+                    {sugestoes.map((sugestao) => (
+                      <li key={sugestao.id}>
+                        <Link
+                          to={`/folha/${sugestao.id}`}
+                          className="text-[0.8rem] text-amber-700 hover:text-amber-900 hover:underline block"
+                        >
+                          {sugestao.nome}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="text-[0.75rem] text-amber-600 mt-2 italic">
+                    Esta busca é apenas informativa. Você pode continuar com o
+                    cadastro normalmente.
+                  </p>
+                </div>
+              )}
+
+              {buscando && nome.trim().length >= 3 && (
+                <p className="text-[0.8rem] text-green-400 mt-[0.4rem] flex items-center gap-1.5">
+                  <span className="w-3 h-3 border-2 border-green-400 border-t-transparent rounded-full animate-spin" />
+                  Buscando folhas semelhantes…
                 </p>
               )}
             </div>
@@ -595,6 +655,27 @@ function SideLeafSVG() {
         strokeLinecap="round"
         strokeDasharray="3 3"
       />
+    </svg>
+  );
+}
+
+function InfoIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      fill="none"
+      style={{ flexShrink: 0 }}
+    >
+      <circle cx="7" cy="7" r="6" stroke="currentColor" strokeWidth="1.2" />
+      <path
+        d="M7 3.5V7.5"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+      />
+      <circle cx="7" cy="9.5" r="0.6" fill="currentColor" />
     </svg>
   );
 }

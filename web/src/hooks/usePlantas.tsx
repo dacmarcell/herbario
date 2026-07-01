@@ -166,3 +166,18 @@ export async function apagarPlanta(id: number) {
 
   return { success: true };
 }
+
+export async function buscarPlantasPorNome(nome: string): Promise<Planta[]> {
+  const response = await fetch(
+    `${API_BASE}/plantas/buscar?nome=${encodeURIComponent(nome)}`,
+    {
+      headers: { Accept: "application/json" },
+    },
+  );
+
+  if (!response.ok) {
+    return [];
+  }
+
+  return response.json();
+}

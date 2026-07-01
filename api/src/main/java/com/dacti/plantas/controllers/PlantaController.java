@@ -27,6 +27,11 @@ public class PlantaController {
         return plantaRepository.findAll();
     }
 
+    @GetMapping("/buscar")
+    public List<Planta> buscarPorNome(@org.springframework.web.bind.annotation.RequestParam String nome) {
+        return plantaRepository.buscarPorNomeSimilar(nome);
+    }
+
     @GetMapping("/{id}")
     public Planta buscarPorId(@PathVariable Long id) {
         return plantaRepository.findById(id).orElseThrow(() -> new RuntimeException("Planta não encontrada com o ID: " + id));
