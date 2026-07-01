@@ -1,7 +1,9 @@
 package com.dacti.plantas.models;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -10,7 +12,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "plantas")
@@ -27,6 +32,10 @@ public class Planta {
 
     @OneToMany(mappedBy = "planta", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Imagem> imagens = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "plantas", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JsonIgnore
+    private Set<Sassanha> sassanhas = new HashSet<>();
 
     public Planta() {
     }
@@ -77,6 +86,22 @@ public class Planta {
     public void removeImagem(Imagem imagem) {
         imagens.remove(imagem);
         imagem.setPlanta(null);
+    }
+
+    public Set<Sassanha> getSassanhas() {
+        return sassanhas;
+    }
+
+    public void setSassanhas(Set<Sassanha> sassanhas) {
+        this.sassanhas = sassanhas;
+    }
+
+    public void addSassanha(Sassanha sassanha) {
+        sassanhas.add(sassanha);
+    }
+
+    public void removeSassanha(Sassanha sassanha) {
+        sassanhas.remove(sassanha);
     }
 
 }
