@@ -1,7 +1,16 @@
 import { useMemo, useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { usePlanta, atualizarPlanta, apagarPlanta } from "../hooks/usePlantas";
+import {
+  usePlanta,
+  atualizarPlanta,
+  apagarPlanta,
+  buscarImagens,
+  deletarImagem,
+  type Imagem,
+} from "../hooks/usePlantas";
 import NavBar from "../components/NavBar";
+import ImageUpload from "../components/ImageUpload";
+import ImageGallery from "../components/ImageGallery";
 
 export default function DetalhePage() {
   const { id } = useParams();
@@ -17,6 +26,14 @@ export default function DetalhePage() {
   const [serverError, setServerError] = useState<string | null>(null);
   const [showPreview, setShowPreview] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [imagens, setImagens] = useState<Imagem[]>([]);
+
+  // Load images when planta is loaded
+  useEffect(() => {
+    if (planta) {
+      buscarImagens(planta.id).then(setImagens);
+    }
+  }, [planta]);
 
   // Sync edit states when planta is loaded
   useEffect(() => {
@@ -43,6 +60,8 @@ export default function DetalhePage() {
 
     if (res.success) {
       setIsEditing(false);
+      // Reload images after saving
+      buscarImagens(planta.id).then(setImagens);
       window.location.reload(); // Refresh to show updated data
     } else {
       setServerError(res.serverError || "Erro ao atualizar");
@@ -60,6 +79,17 @@ export default function DetalhePage() {
       setServerError(res.serverError || "Erro ao apagar");
       setIsDeleting(false);
       setShowDeleteModal(false);
+    }
+  };
+
+  const handleImageUpload = async (imagem: Imagem) => {
+    setImagens((prev) => [...prev, imagem]);
+  };
+
+  const handleImageDelete = async (imagemId: number) => {
+    const result = await deletarImagem(planta.id, imagemId);
+    if (result.success) {
+      setImagens((prev) => prev.filter((img) => img.id !== imagemId));
     }
   };
 
@@ -101,7 +131,7 @@ export default function DetalhePage() {
                   #{String(planta.id || "").padStart(3, "0")}
                 </span>
               </div>
-              
+
               {isEditing ? (
                 <input
                   type="text"
@@ -115,9 +145,11 @@ export default function DetalhePage() {
                   {planta.nome}
                 </h1>
               )}
-              
+
               <p className="text-[0.9rem] text-green-300 italic font-display">
-                {isEditing ? "Editando registro botânico" : "Folha registrada no catálogo botânico"}
+                {isEditing
+                  ? "Editando registro botânico"
+                  : "Folha registrada no catálogo botânico"}
               </p>
             </div>
 
@@ -126,6 +158,28 @@ export default function DetalhePage() {
             </div>
           </div>
         </section>
+
+        {/* Images Section */}
+        {imagens.length > 0 && (
+          <section className="py-8 pb-4 bg-cream-50 border-b border-cream-200">
+            <div className="container">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="flex items-center gap-[10px]">
+                  <LeafSmallIcon />
+                  <h2 className="font-display text-[1.1rem] font-medium text-green-600 lowercase tracking-wider">
+                    Fotos
+                  </h2>
+                </div>
+                <div className="flex-1 h-px bg-cream-300" />
+              </div>
+              <ImageGallery
+                images={imagens}
+                onDelete={isEditing ? handleImageDelete : undefined}
+                readonly={!isEditing}
+              />
+            </div>
+          </section>
+        )}
 
         {/* Content */}
         <section className="flex-1 py-12 pb-20">
@@ -178,13 +232,22 @@ export default function DetalhePage() {
                     />
                   ) : (
                     <div className="animate-fadeIn">
-                       <MarkdownContent content={editConteudo} />
+                      <MarkdownContent content={editConteudo} />
                     </div>
                   )}
 
                   {serverError && (
                     <p className="text-red-500 text-sm italic">{serverError}</p>
                   )}
+
+                  {/* Image Upload in Edit Mode */}
+                  <ImageUpload
+                    plantaId={planta.id}
+                    onUploadSuccess={handleImageUpload}
+                    currentImageCount={imagens.length}
+                    maxImages={5}
+                  />
+
                   <div className="flex items-center gap-3">
                     <button
                       onClick={handleSave}
@@ -230,14 +293,16 @@ export default function DetalhePage() {
                         disabled={isDeleting}
                         className="flex items-center justify-center gap-2 w-full py-3 rounded-lg border border-red-100 text-red-500 text-sm font-medium transition-all hover:bg-red-50 hover:border-red-200 disabled:opacity-50"
                       >
-                        <TrashIcon /> {isDeleting ? "Apagando..." : "Excluir Registro"}
+                        <TrashIcon />{" "}
+                        {isDeleting ? "Apagando..." : "Excluir Registro"}
                       </button>
                     </>
                   )}
                   {isEditing && (
-                     <p className="text-xs text-green-400 italic text-center">
-                        Você está no modo de edição. Salve as alterações para visualizar o resultado.
-                     </p>
+                    <p className="text-xs text-green-400 italic text-center">
+                      Você está no modo de edição. Salve as alterações para
+                      visualizar o resultado.
+                    </p>
                   )}
                 </div>
               </div>
@@ -738,7 +803,8 @@ function DeleteConfirmationModal({
             Excluir registro?
           </h2>
           <p className="text-[0.95rem] text-red-700/70 leading-relaxed">
-            Você está prestes a apagar <strong>"{plantaNome}"</strong>. Esta ação não poderá ser desfeita.
+            Você está prestes a apagar <strong>"{plantaNome}"</strong>. Esta
+            ação não poderá ser desfeita.
           </p>
         </div>
         <div className="p-6 flex flex-col gap-3 bg-white">

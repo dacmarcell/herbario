@@ -4,8 +4,12 @@ import NavBar from "../components/NavBar";
 import {
   criarPlanta,
   buscarPlantasPorNome,
+  deletarImagem,
   type Planta,
+  type Imagem,
 } from "../hooks/usePlantas";
+import ImageUpload from "../components/ImageUpload";
+import ImageGallery from "../components/ImageGallery";
 
 // Simple markdown editor without external dependency
 // Uses a textarea with markdown shortcuts and preview
@@ -21,6 +25,8 @@ export default function CriacaoPage() {
   const textareaRef = useRef<any>(null);
   const [sugestoes, setSugestoes] = useState<Planta[]>([]);
   const [buscando, setBuscando] = useState(false);
+  const [imagens, setImagens] = useState<Imagem[]>([]);
+  const [plantaId, setPlantaId] = useState<number | null>(null);
 
   // Debounced search for similar plant names
   useEffect(() => {
@@ -141,7 +147,7 @@ export default function CriacaoPage() {
     try {
       const result = await criarPlanta({ nome, conteudo });
       if (result.success) {
-        navigate(result.data?.id ? `/folha/${result.data.id}` : "/");
+        setPlantaId(result.data?.id || null);
       } else if (result.errors) {
         setErrors(result.errors);
       } else if (result.serverError) {
@@ -153,6 +159,26 @@ export default function CriacaoPage() {
       );
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleFinish = () => {
+    if (plantaId) {
+      navigate(`/folha/${plantaId}`);
+    } else {
+      navigate("/");
+    }
+  };
+
+  const handleImageUpload = async (imagem: Imagem) => {
+    setImagens((prev) => [...prev, imagem]);
+  };
+
+  const handleImageDelete = async (imagemId: number) => {
+    if (!plantaId) return;
+    const result = await deletarImagem(plantaId, imagemId);
+    if (result.success) {
+      setImagens((prev) => prev.filter((img) => img.id !== imagemId));
     }
   };
 
@@ -330,6 +356,27 @@ export default function CriacaoPage() {
               )}
             </div>
 
+            {/* Image Upload */}
+            {plantaId && (
+              <ImageUpload
+                plantaId={plantaId}
+                onUploadSuccess={handleImageUpload}
+                currentImageCount={imagens.length}
+                maxImages={5}
+              />
+            )}
+
+            {/* Image Gallery */}
+            {imagens.length > 0 && (
+              <div className="mb-7">
+                <ImageGallery
+                  images={imagens}
+                  onDelete={handleImageDelete}
+                  readonly={false}
+                />
+              </div>
+            )}
+
             {/* Conteúdo */}
             <div className="mb-7">
               <label
@@ -481,28 +528,38 @@ export default function CriacaoPage() {
               >
                 Cancelar
               </Link>
-              <button
-                type="button"
-                className="flex items-center gap-2 bg-green-800 text-cream-100 border-none px-7 py-3 rounded-full text-[0.9rem] font-body font-normal transition-all hover:enabled:bg-green-600 hover:enabled:-translate-y-px disabled:opacity-65 disabled:cursor-not-allowed"
-                onClick={handleSubmit}
-                disabled={loading}
-                aria-busy={loading}
-              >
-                {loading ? (
-                  <>
-                    <span
-                      className="w-[15px] h-[15px] border-2 border-white/30 border-t-white rounded-full animate-spin inline-block"
-                      aria-hidden="true"
-                    />
-                    Salvando…
-                  </>
-                ) : (
-                  <>
-                    <SaveIcon />
-                    Registrar folha
-                  </>
-                )}
-              </button>
+              {!plantaId ? (
+                <button
+                  type="button"
+                  className="flex items-center gap-2 bg-green-800 text-cream-100 border-none px-7 py-3 rounded-full text-[0.9rem] font-body font-normal transition-all hover:enabled:bg-green-600 hover:enabled:-translate-y-px disabled:opacity-65 disabled:cursor-not-allowed"
+                  onClick={handleSubmit}
+                  disabled={loading}
+                  aria-busy={loading}
+                >
+                  {loading ? (
+                    <>
+                      <span
+                        className="w-[15px] h-[15px] border-2 border-white/30 border-t-white rounded-full animate-spin inline-block"
+                        aria-hidden="true"
+                      />
+                      Salvando…
+                    </>
+                  ) : (
+                    <>
+                      <SaveIcon />
+                      Registrar folha
+                    </>
+                  )}
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className="flex items-center gap-2 bg-green-600 text-cream-100 border-none px-7 py-3 rounded-full text-[0.9rem] font-body font-normal transition-all hover:bg-green-500 hover:-translate-y-px"
+                  onClick={handleFinish}
+                >
+                  Concluir
+                </button>
+              )}
             </div>
           </div>
         </div>

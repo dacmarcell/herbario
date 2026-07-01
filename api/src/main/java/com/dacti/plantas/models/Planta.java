@@ -1,10 +1,15 @@
 package com.dacti.plantas.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,6 +24,9 @@ public class Planta {
     
     @Column(nullable = false, length = 1000)
     private String conteudo;
+
+    @OneToMany(mappedBy = "planta", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Imagem> imagens = new ArrayList<>();
 
     public Planta() {
     }
@@ -51,6 +59,24 @@ public class Planta {
 
     public void setConteudo(String conteudo) {
         this.conteudo = conteudo;
+    }
+
+    public List<Imagem> getImagens() {
+        return imagens;
+    }
+
+    public void setImagens(List<Imagem> imagens) {
+        this.imagens = imagens;
+    }
+
+    public void addImagem(Imagem imagem) {
+        imagens.add(imagem);
+        imagem.setPlanta(this);
+    }
+
+    public void removeImagem(Imagem imagem) {
+        imagens.remove(imagem);
+        imagem.setPlanta(null);
     }
 
 }

@@ -181,3 +181,69 @@ export async function buscarPlantasPorNome(nome: string): Promise<Planta[]> {
 
   return response.json();
 }
+
+export interface Imagem {
+  id: number;
+  nomeArquivo: string;
+  url: string;
+  tamanho: number;
+  tipo: string;
+}
+
+export async function buscarImagens(plantaId: number): Promise<Imagem[]> {
+  const response = await fetch(`${API_BASE}/plantas/${plantaId}/imagens`, {
+    headers: { Accept: "application/json" },
+  });
+
+  if (!response.ok) {
+    return [];
+  }
+
+  return response.json();
+}
+
+export async function uploadImagem(
+  plantaId: number,
+  arquivo: File,
+): Promise<{ success: boolean; data?: Imagem; error?: string }> {
+  const formData = new FormData();
+  formData.append("arquivo", arquivo);
+
+  const response = await fetch(`${API_BASE}/plantas/${plantaId}/imagens`, {
+    method: "POST",
+    body: formData,
+  });
+
+  if (!response.ok) {
+    const body = await response.json().catch(() => ({}));
+    return {
+      success: false,
+      error: body.message || `Erro ${response.status}: ${response.statusText}`,
+    };
+  }
+
+  const data = await response.json();
+  return { success: true, data };
+}
+
+export async function deletarImagem(
+  plantaId: number,
+  imagemId: number,
+): Promise<{ success: boolean; error?: string }> {
+  const response = await fetch(
+    `${API_BASE}/plantas/${plantaId}/imagens/${imagemId}`,
+    {
+      method: "DELETE",
+    },
+  );
+
+  if (!response.ok) {
+    const body = await response.json().catch(() => ({}));
+    return {
+      success: false,
+      error: body.message || `Erro ${response.status}: ${response.statusText}`,
+    };
+  }
+
+  return { success: true };
+}
