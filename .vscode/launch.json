@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-PlantasApplication<plantas>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.dacti.plantas.PlantasApplication",
+      "projectName": "plantas",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}

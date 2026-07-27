@@ -17,6 +17,8 @@ export default function CriacaoPage() {
   const navigate = useNavigate();
   const [nome, setNome] = useState("");
   const [conteudo, setConteudo] = useState("");
+  const [categoria, setCategoria] = useState("");
+  const [tags, setTags] = useState("");
   const [errors, setErrors] = useState<any>({});
   const [serverError, setServerError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -145,7 +147,12 @@ export default function CriacaoPage() {
     setLoading(true);
     setServerError("");
     try {
-      const result = await criarPlanta({ nome, conteudo });
+      const result = await criarPlanta({
+        nome,
+        conteudo,
+        categoria,
+        tags,
+      });
       if (result.success) {
         setPlantaId(result.data?.id || null);
       } else if (result.errors) {
@@ -354,6 +361,50 @@ export default function CriacaoPage() {
                   Buscando folhas semelhantes…
                 </p>
               )}
+            </div>
+
+            {/* Categoria */}
+            <div className="mb-7">
+              <label
+                className="block text-[0.875rem] font-medium text-green-800 mb-2 tracking-tight"
+                htmlFor="categoria"
+              >
+                Categoria
+              </label>
+              <select
+                id="categoria"
+                value={categoria}
+                onChange={(e) => setCategoria(e.target.value)}
+                className="w-full bg-white border-[1.5px] border-cream-300 rounded-md px-3.5 h-[50px] transition-all focus:border-green-400 focus:ring-4 focus:ring-green-400/5 text-base font-body text-green-900"
+              >
+                <option value="">Selecione uma categoria (opcional)</option>
+                <option value="medicinal">Medicinal</option>
+                <option value="ornamental">Ornamental</option>
+                <option value="comestivel">Comestível</option>
+                <option value="tóxica">Tóxica</option>
+                <option value="ritualística">Ritualística</option>
+              </select>
+            </div>
+
+            {/* Tags */}
+            <div className="mb-7">
+              <label
+                className="block text-[0.875rem] font-medium text-green-800 mb-2 tracking-tight"
+                htmlFor="tags"
+              >
+                Tags
+              </label>
+              <input
+                id="tags"
+                type="text"
+                value={tags}
+                onChange={(e) => setTags(e.target.value)}
+                placeholder="Separe por vírgula: ex: aromática, tropical, rara"
+                className="w-full bg-white border-[1.5px] border-cream-300 rounded-md px-3.5 h-[50px] transition-all focus:border-green-400 focus:ring-4 focus:ring-green-400/5 text-base font-body text-green-900 placeholder:text-green-200"
+              />
+              <p className="text-[0.75rem] text-green-400 mt-1">
+                Use vírgulas para separar múltiplas tags
+              </p>
             </div>
 
             {/* Image Upload */}

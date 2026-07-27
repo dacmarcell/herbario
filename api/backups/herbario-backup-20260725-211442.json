@@ -1,0 +1,691 @@
+[ {
+  "id" : 7,
+  "nome" : "Folha de Noni",
+  "conteudo" : "- Bom pra diabetes e pros rins\n- Inflamação\n- Doenças reumaticas",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 14, 26, 102685000 ],
+  "visualizacoes" : 4,
+  "imagens" : [ ]
+}, {
+  "id" : 8,
+  "nome" : "Espada de ogum",
+  "conteudo" : "Idà Òrìsà\n\nErva quente.\n\nBom para amor, atrai clientes, torna o ambiente agradável.\nUsada em \"lavagem de cabeça e guias\", sendo também utilizada em banhos de descarrego.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 5,
+  "nome" : "Folha de manga",
+  "conteudo" : "Ewé Ogbògbò / Màngò\n“A folha que combate ataques do baixo astral”\n\nFolha quente, descarrego.\nTem funções de energizar, fazer limpeza leve para o dia a dia ou, em banhos específicos, descarregar energias de baixo astral.\n\nÉ associada à ancestralidade feminina, às forças das mães (ìyábás).\nÉ associada a alguns òrìṣà em diferentes nações: Ògún, Òsóòssì, Ìrokó e Èṣù, e também ao òrìṣà Oṣalá.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 6,
+  "nome" : "Guiné",
+  "conteudo" : "Ewé Òjúṣàjú\n\n“A folha que faz ser o predileto”\n\nÉ uma folha quente e predominantemente masculina. Descarrego.\n\nEla atua energeticamente muito forte e rápido, limpeza profunda e tornando energeticamente atrativo e o predileto.\nPode ser usada em banhos, ofós, fundamentos, sacudimentos e iniciações de alguns òrìṣàs como Ògún, Òsóòsì e Òsányìn. É usada para Èṣù para abertura de caminho.\n\nProteção e discernimento. É a folha conhecida por “enxergar” e repelir más intenções antes que elas atinjam a pessoa.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 9,
+  "nome" : "Arruda",
+  "conteudo" : "Ewe Atopá Kun\n\nErva quente\n\nFolha de Exú\n\nPara limpeza e defumações.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ {
+    "id" : 5,
+    "nomeArquivo" : "arruda1.jpg",
+    "url" : "/uploads/e991d40a-6d61-4b3a-b097-eecabcad8cc1.jpg",
+    "tamanho" : 35726,
+    "tipo" : "image/jpeg"
+  } ]
+}, {
+  "id" : 39,
+  "nome" : "Poejo",
+  "conteudo" : "Erva morna.\nOrixás: Oxum e Yemoja",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 40,
+  "nome" : "Levante",
+  "conteudo" : "Èwé Eré Tuntún\nErva morna.\nOrixás: Oxum, Iemonjá e Oxalá.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 41,
+  "nome" : "Manjerona",
+  "conteudo" : "Èwé Eré Túntún.\nErva morna.\nOrixás: Xangô.\nTerapêutica: estimulante do apetite, digestivo, cólicas, flatulência e afrodisíaco.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 43,
+  "nome" : "Graviola",
+  "conteudo" : "Erva morna.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 45,
+  "nome" : "Colônia",
+  "conteudo" : "Èwé Tótó\nErva morna.\nOrixás: Oxum, Nanã, Yemoja.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 50,
+  "nome" : "Goiabeira",
+  "conteudo" : "Erva morna.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 55,
+  "nome" : "Angélica",
+  "conteudo" : "Erva morna.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 10,
+  "nome" : "Guiné",
+  "conteudo" : "Ewé Ojúùsájú. A Guiné é uma planta dedicada especialmente a Oxóssi, mas também é associada a Ogum e Exú.\n\nSua raiz, em pó, era empregada em uma magia capaz de provocar superexcitação, insônia e alucinações.\nUso de folhas da Guiné de maneira moderada para preparar banhos e pós com finalidades de limpeza, atrair boa sorte e afastar invejas e energias que provocam mal estar e desânimos.\n\nNa medicina caseira, a Guiné possui propriedades antiespasmódicas, diuréticas, sudoríferas e emenagogas, sendo usada em infusões fracas de suas folhas e raízes no tratamento de condições como hidropisia, artrite, reumatismo e malária. Além disso, pode ser utilizada como inseticida.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 11,
+  "nome" : "Alho",
+  "conteudo" : "Ewé Alubọsa Ayu (casca de alho).\nAyò (ou Ayù) (alho).\nErva quente. Erva de Exú.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 12,
+  "nome" : "Casca de Cebola",
+  "conteudo" : "Ewé àlùbọ́sà ou Epo àlùbọ́sà\n\nErva quente.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 4,
+  "nome" : "Lavanda/Alfazema",
+  "conteudo" : "Èwé Lọ́fíndà / Àrùsò\nErva morna.\nFolha que traz calma de espírito, acalma o orí, tranquiliza.\nUsado principalmente no culto às Iyabás, como Oxum e Yemanjá.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 14,
+  "nome" : "Pinhão Roxo",
+  "conteudo" : "Bòtujè Pupa\nErva quente. Erva na força de Ògún, Obalúwàiyé e Oyá.\n\nMedicina popular: Na medicina tradicional, é utilizada devido às suas propriedades cicatrizantes, anti-inflamatórias e analgésicas.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 15,
+  "nome" : "Quebra demanda",
+  "conteudo" : "Ewe Pá-nságá.\nErva quente. Folha na linhagem de Ogún",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 16,
+  "nome" : "Oripepê",
+  "conteudo" : "Èwé Awùrépépé.\nErva fria. É uma das folhas do orô da “voz” do orixá\nOrixás: Exú (flores), Xango, Oxum e Oxalá (folhas).\nTerapêutica: folhas: escorbuto, anemia e dispepsia – extrato das flores: dores de dente – xarope das folhas: expectorante infantil.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 17,
+  "nome" : "Mamona Branca",
+  "conteudo" : "Èwé Lárà funfun\nErva quente.\nOrixás: Oxalá\nTerapêutica: água das folhas cozidas com sal: inchaços nos pés – sementes: óleo de rícino, que é purgativo e indicado para prisão de ventre.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 18,
+  "nome" : "Eucalipto",
+  "conteudo" : "Èwé Eucalipto.\nErva quente.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 19,
+  "nome" : "Folha de chorão",
+  "conteudo" : "Erva quente.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 20,
+  "nome" : "Picão",
+  "conteudo" : "Èwé Abéré.\nOrixás: Exú (em pó ou para feitiços) e Oxum.\nTerapêutica: chá – hepatite, febres, males do fígado, rins e bexiga.\nPlanta Muito popular no território nacional, tem sua origem na América tropical e encontra-se presente na Europa e na África. As folhas são também atribuídas a Oxum, com larga utilização em \"feitiços\". Para esta finalidade são torradas em panelas de ferro, associadas a outros elementos, para a obtenção do Atin (pó), seguindo o modelo mítico de que este orixá é considerado \"a mãe dos feitiços\". In natura suas folhas são também usadas em assentamentos e trabalhos com Exú.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 21,
+  "nome" : "Angico",
+  "conteudo" : "Erva quente.\nOrixás: Xangô, Ogum e Oxóssi.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 23,
+  "nome" : "Jurema Preta",
+  "conteudo" : "Erva quente.\nOrixás: Ossain e Oxossi.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 24,
+  "nome" : "Cipó Chumbo",
+  "conteudo" : "Èwé Awó Pupá.\nErva quente.\nOrixás: Ossain, Omolú, Ogum (Ogunjá), Nanã.\nTerapêutica: afecções pulmonares, gripes e resfriados fortes, anginas, faringites e amidalites. Reduzido a pó é aplicado em úlceras e feridas como cicatrizante (uso externo).",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 25,
+  "nome" : "Espada-de-Santa-Bárbara",
+  "conteudo" : "Obé Semi Oyá.\nErva quente.\nOrixá: Oyá.\nNativa do México, encontrada em toda América tropical, cultivada ou espontânea em matas sombreadas.\nFolha utilizada no ritual de iniciação dos filhos de Oiá, no àgbo, em banhos purificatórios e sacudimentos. Conhecida também pelo nome nagô OBÉ SEMI OYÁ, nos candomblés do Rio de Janeiro. Os cubanos atribuem essa planta a xangô, Iemanjá e Ogum, e dão-lhe os nomes lucumis peregún, tupa ou diéla (Cabrera 1992:410) Hoehne (1925:68), a respeito desta planta,diz: \"Rhoeo discolor, o afamado 'Cordoban\" da América Central, a planta mais útil para combater as tosses.\" Todavia, na medicina rural, esta planta combate também diversos males das vias respiratórias.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 26,
+  "nome" : "Espinheira Santa",
+  "conteudo" : "Erva quente.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 27,
+  "nome" : "Para Raio",
+  "conteudo" : "Èwé Igí Mésàn.\nErva quente.\nOrixás: Oyá e Xangô.\nTerapêutica: folhas: abortivo, laxante, estimulante intestinal – frutos: hemorróidas, vermes – lenho: feridas, erisipelas e doenças de pele.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 28,
+  "nome" : "Dandá da Costa",
+  "conteudo" : "Èwé Dandà.\nErva quente.\nOrixás: Exu, Ogum, Oxóssi, Ossain, Oxumarê e Nanã.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 29,
+  "nome" : "Comigo ninguém pode",
+  "conteudo" : "Erva quente.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 30,
+  "nome" : "Desata nó",
+  "conteudo" : "Erva quente.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 32,
+  "nome" : "Sálvia",
+  "conteudo" : "Èwé Ikiriwí\nErva morna.\nOrixás: Oxalá.\nTerapêutica: chá: gripes e resfriados, febres, afecções leves do estomago, vômitos, escorbuto, corrimentos purulentos da uretra, cólicas menstruais, debilidades sexuais, antiabortivo, antidiabético e regulador da pressão.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 34,
+  "nome" : "Calêndula",
+  "conteudo" : "Erva morna.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 35,
+  "nome" : "Hortelã",
+  "conteudo" : "Èwé Mintí.\nErva morna.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 36,
+  "nome" : "Boldo ou Tapete de Oxalá",
+  "conteudo" : "Èwé Babá.\nErva morna.\nOrixás: Oxalá.\nTerapêutica: fígado, rins e estomago.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 37,
+  "nome" : "Manjericão",
+  "conteudo" : "Èwé Efínrin ou Efínrin Kêkerê\nErva morna.\nOrixás: Oxum, Iemonjá e Oxalá.\nTerapêutica: gases, cólicas intestinais, diarréias, afecções das vias urinárias e/ou respiratórias, gengivites, amidalites, faringites, estomatites, aftas e tempero de comida.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 38,
+  "nome" : "Alfavaca",
+  "conteudo" : "Èwé Efínfín.\nErva morna.\nOrixás: Exú (a roxa), Xangô, Omolú e Oxalá.\nTerapêutica: diurético, anti-séptico, calmante, azias, tosses, gripes e resfriados leves, temperos de comida.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ {
+    "id" : 7,
+    "nomeArquivo" : "alfavaca1.jpg",
+    "url" : "/uploads/393b0924-5903-4e47-8760-d9de87021ea5.jpg",
+    "tamanho" : 104893,
+    "tipo" : "image/jpeg"
+  } ]
+}, {
+  "id" : 13,
+  "nome" : "Fumo (tabaco)",
+  "conteudo" : "Tàbá.\n\nErva quente.\nDescarrego.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ {
+    "id" : 19,
+    "nomeArquivo" : "design-sem-nome-2024-03-08t222044-517-14b15d62d71643c7b517099472502996-480-0.webp",
+    "url" : "/uploads/87008e55-1840-4c5f-9f87-eb094a7294d2.webp",
+    "tamanho" : 5292,
+    "tipo" : "image/webp"
+  } ]
+}, {
+  "id" : 42,
+  "nome" : "Folha da Costa ou Saião",
+  "conteudo" : "Èwé Òdúndún.\nErva morna.\nOrixás: Oxalá.\nConhecida popularmente por Folha da Costa, saião, folha ou erva grossa. De origem brasileira, esta folha é encontrada em várias lugares de clima tropical e até aclimatada em outros países. Tanto no Brasil como na África, esta planta é dedicada a todos os Orixás ligados a mito da criação, conhecidos como òrìsà-funfun, e por extensão, é utilizada para os demais Orixás. Nos candomblés brasileiros é usada nos rituais de iniciação e obrigações em geral, ligada aos banhos de  àgbo, as oferendas de Eborí, nos sacrifícios de animais cobrindo os olhos dos animais para não ver Ikú, etc. Òdúndún, é a folha que acalma, esfria o Ori, saudada no ritual de sasányìn, é a principal  folha dos filhos de Oxalá. Folha que participa juntamente com outras folhas, do orô da lavagem das vistas e dos búzios dos sacerdotes confirmados por Orunmilá na obrigação de sete anos com direito a utilizarem o Merindilogun.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 46,
+  "nome" : "Fortuna",
+  "conteudo" : "Èwé Abámọdá\nErva morna.\nOrixás: Exú, Oxalá, Xangô e orixás fun fun.\nTerapêutica: refrigerante, diurética e sedativa. Combate cefaléias, nevralgias, dor de dente, coqueluche e afecções das vias respiratórias. Eficiente contra as doenças de pele, feridas purulentas, furúnculos, úlceras e dermatoses.\nÁbámodá, segundo Dalziel (1948:28), em dialeto yorubá significa \"o que você deseja, você faz\"; todavia, quando chamada de  erú òdúndún (escravo de odundun), é considerada como folha subordinada e afim, que pode eventualmente substituir o òdúndún (Kalanchoe crenata (Andr.) Haw), segundo a cosmovisão jêje-nagô.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 47,
+  "nome" : "Capeba",
+  "conteudo" : "Capeba Èwé Ìyá.\nErva morna.\nOrixás: Iemonjá.\nTerapêutica: estimulante, diurético, afecções das vias renais, febres, gastrites, debilidades orgânicas, furúnculos, abscessos, prisão de ventre, ingurgitamento do fígado e baço, ulcerações sifilíticas, hemorróidas e reumatismo.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 48,
+  "nome" : "Oriri",
+  "conteudo" : "Èwé Rínrín.\nErva morna.\nOrixás: Oxum e Oxalá.\nTerapêutica: irritações e inflamações oculares e suave tônico cardíaco.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 49,
+  "nome" : "Boldo Paulista, Boldo Baiano ou Alumã",
+  "conteudo" : "Èwé Ewúro\nErva morna.\nOrixás: Ogum.\nTerapêutica: sumo: enjôos provocados por má digestão ou problemas hepáticos.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 51,
+  "nome" : "Pitangueira",
+  "conteudo" : "Èwé Itá\nOrixás: Antes de 18h é de Exú, após 18h, vira pra Egun.\nTerapêutica: adstringente, anti-reumático, diarréias e febres infantis, gripes e resfriados, tosses.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 52,
+  "nome" : "Laranjeira",
+  "conteudo" : "Erva morna.\nOrixás: Oxum, Oxóssi e Oyá.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 53,
+  "nome" : "Abre Caminho",
+  "conteudo" : "Èwé Lorogún.\nErva morna.\nOrixás: Ogum.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 54,
+  "nome" : "Samambaia de poço ou Pente de cobra",
+  "conteudo" : "Èwé Òmun\nErva morna.\nOrixás: Osumarê.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 56,
+  "nome" : "Barba de velho",
+  "conteudo" : "Èwé Irùngbòn\nErva morna.\nOrixás: Omolú.\nTerapêutica: abscessos, hemorróidas, reumatismo.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 57,
+  "nome" : "Cipó Caboclo",
+  "conteudo" : "Erva morna.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 58,
+  "nome" : "Ipê Roxo",
+  "conteudo" : "Erva morna.\nOrixás: Nanã, Oxóssi e Obaluayê",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 59,
+  "nome" : "Rosa Branca",
+  "conteudo" : "Erva morna.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 60,
+  "nome" : "Folha de cenoura",
+  "conteudo" : "Erva morna.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 61,
+  "nome" : "Folha de beterraba",
+  "conteudo" : "Erva morna.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ ]
+}, {
+  "id" : 33,
+  "nome" : "Alecrim",
+  "conteudo" : "Èwé Ewéré\nErva morna.\nOrixás: Oxóssi e Oxalá.\nTerapêutica: má digestão, gases, reumatismo, encefalia e tempero de comida. Também conhecido por efeitos estimulantes antioxidantes, associados à melhora da memória, foco e concentração.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ {
+    "id" : 6,
+    "nomeArquivo" : "alecrim1.jpg",
+    "url" : "/uploads/6b65a0b1-4f5a-4f9b-a46b-01afa952dc3f.jpg",
+    "tamanho" : 77618,
+    "tipo" : "image/jpeg"
+  } ]
+}, {
+  "id" : 62,
+  "nome" : "Folha de figueira",
+  "conteudo" : "# Èwé Ègúnmó\nÁrvore milenar de raízes profundas.\nFolha quente.\nUsada em banhos: descarrego.\nOrixás: Irôko, Tempo, Loko\nA figueira do inferno, que não dá fruto, é um dos pontos de materialização dos exus aqui na terra.\nRepresenta uma falange inteira e também há a figueira que representa o reino das matas ou outras falanges.\nAlgumas entidades que trabalham nessa energia:\n### Pombogiras\n- Maria Figueira\n- Sete Figueiras\n- Figueira das Almas\n- Figueira do Inferno\n- Quitéria da Figueira",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ {
+    "id" : 9,
+    "nomeArquivo" : "depositphotos_843923520-stock-photo-back-side-fig-leaves-vivid.webp",
+    "url" : "/uploads/8bc4534f-a9e6-422e-a3de-acb3127b87fd.webp",
+    "tamanho" : 28910,
+    "tipo" : "image/webp"
+  }, {
+    "id" : 10,
+    "nomeArquivo" : "fig-tree-ficus-spp-leopard-gorge-masai-mara-reserve-kenya.webp",
+    "url" : "/uploads/f2cab5cd-03a6-4b7a-8766-694549c2dcf3.webp",
+    "tamanho" : 79602,
+    "tipo" : "image/webp"
+  }, {
+    "id" : 11,
+    "nomeArquivo" : "depositphotos_765861516-stock-photo-close-fig-fruits-ripening-branch.webp",
+    "url" : "/uploads/f141cb9e-fb4c-4f7c-9f88-82231872d59b.webp",
+    "tamanho" : 42684,
+    "tipo" : "image/webp"
+  } ]
+}, {
+  "id" : 31,
+  "nome" : "Pimentas",
+  "conteudo" : "# Èwé Átáaré.\nErva quente.\nOrixás: Exú e Ossain.\nTerapêutica: tempero de comidas.\nA pimenta arde mas também trás prosperidade. É fruto de muitas sementes, símbolo de multiplicação e abertura de caminhos.\nTem sua falange própria ligada ao reino da mata.\n### Espiritos:\n- Exu Pimenta\n- Exu Sete Pimentas\n- Exu Pimenta Verde",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ {
+    "id" : 12,
+    "nomeArquivo" : "red-chili-pepper.webp",
+    "url" : "/uploads/a52d4b73-9267-470a-954b-aa320ab0dc18.webp",
+    "tamanho" : 17176,
+    "tipo" : "image/webp"
+  }, {
+    "id" : 13,
+    "nomeArquivo" : "chili-6774902_640.webp",
+    "url" : "/uploads/dbde2fff-5495-4072-84e5-beb27a2e7a74.webp",
+    "tamanho" : 17396,
+    "tipo" : "image/webp"
+  } ]
+}, {
+  "id" : 63,
+  "nome" : "Mamona",
+  "conteudo" : "Folha de exu.\nPode ser usada como alguidar para oferendas pra exu.\nÉ usada também na purificação de elementos de assentamentos e trabalhos, macerada em água ou cachaça.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ {
+    "id" : 14,
+    "nomeArquivo" : "castor-oil-6226038_640.webp",
+    "url" : "/uploads/89fe20ba-8390-4fb0-ab1c-944a2919cc8d.webp",
+    "tamanho" : 46428,
+    "tipo" : "image/webp"
+  }, {
+    "id" : 15,
+    "nomeArquivo" : "D_Q_NP_2X_757780-MLB98304524742_112025-E.webp",
+    "url" : "/uploads/5beff6b5-9f00-47da-a1e9-9a272eaf0e9b.webp",
+    "tamanho" : 32858,
+    "tipo" : "image/webp"
+  } ]
+}, {
+  "id" : 44,
+  "nome" : "Abacateiro",
+  "conteudo" : "# Èwé Igi Itobi\nErva morna.\nFruto trás prosperidade e nutre a vida da pessoa.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ {
+    "id" : 16,
+    "nomeArquivo" : "avocado-abacate-fuerte.webp",
+    "url" : "/uploads/e3757352-9e7b-450c-aa18-ee4ccd0bb931.webp",
+    "tamanho" : 48188,
+    "tipo" : "image/webp"
+  }, {
+    "id" : 17,
+    "nomeArquivo" : "D_NQ_NP_981415-MLB71609867318_092023-O.webp",
+    "url" : "/uploads/58059559-476b-4d38-94ea-a6520ef9659b.webp",
+    "tamanho" : 15314,
+    "tipo" : "image/webp"
+  } ]
+}, {
+  "id" : 22,
+  "nome" : "Aroeira",
+  "conteudo" : "# Èwé Àjóbi.\nErva quente.\nOrixás: Todos os orixás, mas quando dá fruto, vira para Exú.\nTerapêutica: anti-reumático, bronquites, feridas, tumores, inflamações, corrimentos, diarréias e gastrites.",
+  "categoria" : null,
+  "tags" : null,
+  "createdAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "updatedAt" : [ 2026, 7, 25, 21, 8, 29, 534354000 ],
+  "visualizacoes" : 0,
+  "imagens" : [ {
+    "id" : 8,
+    "nomeArquivo" : "aroeira1.jpg",
+    "url" : "/uploads/6b775b5d-f518-4ffc-9cc4-4f8e848b9b4d.jpg",
+    "tamanho" : 108871,
+    "tipo" : "image/jpeg"
+  }, {
+    "id" : 18,
+    "nomeArquivo" : "brazilian-peppertree.webp",
+    "url" : "/uploads/b2c3b7ea-4e4c-4ce2-9bb0-489f9639a205.webp",
+    "tamanho" : 66610,
+    "tipo" : "image/webp"
+  } ]
+} ]

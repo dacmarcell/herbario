@@ -36,3 +36,16 @@ Content-Type: application/json
     "nomes": ["Alecrim", "Boldo", "Manjericão"],
     "intencao": "Banho de descarrego"
 }
+
+### Pesquisa avançada
+
+GET http://localhost:8080/api/search/avancada?conteudo=quente
+
+### Pesquisa semântica
+
+POST http://localhost:8080/api/search/semantica
+Content-Type: application/json
+
+{
+    "query": "plantas para relaxamento"
+}

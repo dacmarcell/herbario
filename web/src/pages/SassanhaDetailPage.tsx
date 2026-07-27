@@ -1,9 +1,14 @@
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { useSassanha, atualizarSassanha, apagarSassanha } from "../hooks/useSassanhas";
+import {
+  useSassanha,
+  atualizarSassanha,
+  apagarSassanha,
+} from "../hooks/useSassanhas";
 import { usePlantas } from "../hooks/usePlantas";
 import NavBar from "../components/NavBar";
 import MultiSelect from "../components/MultiSelect";
+import AudioPlayer from "../components/AudioPlayer";
 import type { Planta } from "../hooks/usePlantas";
 
 export default function SassanhaDetailPage() {
@@ -30,7 +35,7 @@ export default function SassanhaDetailPage() {
       // Load related plantas if plantaIds is available
       if (sassanha.plantaIds && sassanha.plantaIds.length > 0) {
         const relatedPlantas = plantas.filter((p) =>
-          sassanha.plantaIds?.includes(p.id)
+          sassanha.plantaIds?.includes(p.id),
         );
         setEditPlantas(relatedPlantas);
       }
@@ -38,7 +43,8 @@ export default function SassanhaDetailPage() {
   }, [sassanha, plantas]);
 
   if (loading) return <LoadingView />;
-  if (error) return <ErrorView error={error} onBack={() => navigate("/sassanhas")} />;
+  if (error)
+    return <ErrorView error={error} onBack={() => navigate("/sassanhas")} />;
   if (!sassanha) return null;
 
   const handleSave = async () => {
@@ -77,7 +83,7 @@ export default function SassanhaDetailPage() {
   };
 
   const relatedPlantas = plantas.filter((p) =>
-    sassanha.plantaIds?.includes(p.id)
+    sassanha.plantaIds?.includes(p.id),
   );
 
   return (
@@ -118,7 +124,7 @@ export default function SassanhaDetailPage() {
                   #{String(sassanha.id || "").padStart(3, "0")}
                 </span>
               </div>
-              
+
               {isEditing ? (
                 <input
                   type="text"
@@ -132,9 +138,11 @@ export default function SassanhaDetailPage() {
                   {sassanha.yorubaContent}
                 </h1>
               )}
-              
+
               <p className="text-[0.9rem] text-green-300 italic font-display">
-                {isEditing ? "Editando sassanha" : "Sassanha registrada no catálogo"}
+                {isEditing
+                  ? "Editando sassanha"
+                  : "Sassanha registrada no catálogo"}
               </p>
             </div>
 
@@ -221,12 +229,18 @@ export default function SassanhaDetailPage() {
               ) : (
                 <div className="space-y-6">
                   <div className="bg-green-50 border border-green-200 rounded-lg p-6">
-                    <h3 className="text-sm font-medium text-green-700 mb-3">Em Yorubá</h3>
-                    <p className="text-green-900 whitespace-pre-wrap">{sassanha.yorubaContent}</p>
+                    <h3 className="text-sm font-medium text-green-700 mb-3">
+                      Em Yorubá
+                    </h3>
+                    <p className="text-green-900 whitespace-pre-wrap">
+                      {sassanha.yorubaContent}
+                    </p>
                   </div>
-                  
+
                   <div>
-                    <h3 className="text-sm font-medium text-green-700 mb-3">Tradução</h3>
+                    <h3 className="text-sm font-medium text-green-700 mb-3">
+                      Tradução
+                    </h3>
                     <div className="prose prose-green max-w-none">
                       <MarkdownContent content={sassanha.content} />
                     </div>
@@ -237,6 +251,17 @@ export default function SassanhaDetailPage() {
 
             {/* Sidebar */}
             <aside className="space-y-6">
+              {/* Audio Player */}
+              <AudioPlayer
+                sassanhaId={sassanha.id}
+                audioUrl={sassanha.audioUrl}
+                transricaoFonetica={sassanha.transricaoFonetica}
+                onUpdate={(audioUrl, transricaoFonetica) => {
+                  // Atualizar sassanha localmente
+                  window.location.reload();
+                }}
+              />
+
               {/* Related plantas */}
               {relatedPlantas.length > 0 && (
                 <div className="bg-white border border-cream-300 rounded-lg p-6">
@@ -250,7 +275,9 @@ export default function SassanhaDetailPage() {
                         to={`/folha/${planta.id}`}
                         className="block p-3 bg-cream-50 rounded-lg hover:bg-green-50 transition-colors"
                       >
-                        <p className="text-sm font-medium text-green-900">{planta.nome}</p>
+                        <p className="text-sm font-medium text-green-900">
+                          {planta.nome}
+                        </p>
                       </Link>
                     ))}
                   </div>
@@ -289,13 +316,13 @@ export default function SassanhaDetailPage() {
                   <div>
                     <span className="text-green-400">Criado em:</span>
                     <span className="text-green-700 ml-2">
-                      {new Date(sassanha.createdAt).toLocaleDateString('pt-BR')}
+                      {new Date(sassanha.createdAt).toLocaleDateString("pt-BR")}
                     </span>
                   </div>
                   <div>
                     <span className="text-green-400">Atualizado em:</span>
                     <span className="text-green-700 ml-2">
-                      {new Date(sassanha.updatedAt).toLocaleDateString('pt-BR')}
+                      {new Date(sassanha.updatedAt).toLocaleDateString("pt-BR")}
                     </span>
                   </div>
                 </div>
@@ -313,7 +340,8 @@ export default function SassanhaDetailPage() {
               Excluir sassanha
             </h3>
             <p className="text-sm text-green-600 mb-6">
-              Esta ação é irreversível. Tem certeza que deseja excluir esta sassanha?
+              Esta ação é irreversível. Tem certeza que deseja excluir esta
+              sassanha?
             </p>
             <div className="flex items-center justify-end gap-3">
               <button
@@ -449,8 +477,14 @@ function HeroBgSVG() {
     >
       <defs>
         <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style={{ stopColor: "rgba(42,95,60,0.3)", stopOpacity: 1 }} />
-          <stop offset="100%" style={{ stopColor: "rgba(26,52,35,0.1)", stopOpacity: 1 }} />
+          <stop
+            offset="0%"
+            style={{ stopColor: "rgba(42,95,60,0.3)", stopOpacity: 1 }}
+          />
+          <stop
+            offset="100%"
+            style={{ stopColor: "rgba(26,52,35,0.1)", stopOpacity: 1 }}
+          />
         </linearGradient>
       </defs>
       <rect width="400" height="200" fill="url(#grad1)" />

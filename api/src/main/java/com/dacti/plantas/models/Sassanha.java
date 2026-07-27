@@ -32,6 +32,12 @@ public class Sassanha {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String yorubaContent;
 
+    @Column(length = 500)
+    private String audioUrl;
+
+    @Column(length = 500)
+    private String transricaoFonetica;
+
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
@@ -120,5 +126,21 @@ public class Sassanha {
 
     public void removePlanta(Planta planta) {
         plantas.remove(planta);
+    }
+
+    public String getAudioUrl() {
+        return audioUrl;
+    }
+
+    public void setAudioUrl(String audioUrl) {
+        this.audioUrl = audioUrl;
+    }
+
+    public String getTransricaoFonetica() {
+        return transricaoFonetica;
+    }
+
+    public void setTransricaoFonetica(String transricaoFonetica) {
+        this.transricaoFonetica = transricaoFonetica;
     }
 }

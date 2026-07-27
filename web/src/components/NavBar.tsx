@@ -48,6 +48,16 @@ export default function NavBar() {
             Banhos
           </Link>
           <Link
+            to="/dashboard"
+            className={`text-[0.875rem] font-normal text-green-200 tracking-wider transition-colors lowercase hover:text-cream-100 ${
+              location.pathname === "/dashboard"
+                ? "text-cream-100 border-b border-green-300 pb-[1px]"
+                : ""
+            }`}
+          >
+            Dashboard
+          </Link>
+          <Link
             to="/nova"
             className={`flex items-center gap-1.5 text-[0.875rem] font-normal px-[18px] py-2 rounded-full transition-all hover:-translate-y-px tracking-normal ${
               location.pathname === "/nova"

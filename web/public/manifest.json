@@ -1,0 +1,36 @@
+{
+  "name": "Herbário - Catálogo Botânico",
+  "short_name": "Herbário",
+  "description": "Catálogo botânico digital para registro de espécies, rituais e conhecimentos de plantas",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f0fdf4",
+  "theme_color": "#166534",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "lifestyle"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Nova Planta",
+      "short_name": "Nova",
+      "description": "Adicionar nova planta ao catálogo",
+      "url": "/criacao",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Catálogo",
+      "short_name": "Catálogo",
+      "description": "Ver todas as plantas",
+      "url": "/",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    }
+  ]
+}

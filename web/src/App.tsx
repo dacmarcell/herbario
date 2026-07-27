@@ -6,6 +6,7 @@ import BanhoPage from "./pages/BanhoPage";
 import SassanhaListPage from "./pages/SassanhaListPage";
 import SassanhaDetailPage from "./pages/SassanhaDetailPage";
 import SassanhaCreationPage from "./pages/SassanhaCreationPage";
+import DashboardPage from "./pages/DashboardPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path="/sassanhas" element={<SassanhaListPage />} />
       <Route path="/sassanha/nova" element={<SassanhaCreationPage />} />
       <Route path="/sassanha/:id" element={<SassanhaDetailPage />} />
+      <Route path="/dashboard" element={<DashboardPage />} />
     </Routes>
   );
 }

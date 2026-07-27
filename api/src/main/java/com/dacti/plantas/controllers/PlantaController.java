@@ -2,7 +2,6 @@ package com.dacti.plantas.controllers;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -19,8 +18,11 @@ import com.dacti.plantas.repositories.PlantaRepository;
 @RequestMapping("/plantas")
 public class PlantaController {
 
-    @Autowired
-    private PlantaRepository plantaRepository;
+    private final PlantaRepository plantaRepository;
+
+    PlantaController(PlantaRepository plantaRepository) {
+        this.plantaRepository = plantaRepository;
+    }
 
     @GetMapping
     public List<Planta> listar() {
@@ -34,7 +36,10 @@ public class PlantaController {
 
     @GetMapping("/{id}")
     public Planta buscarPorId(@PathVariable Long id) {
-        return plantaRepository.findById(id).orElseThrow(() -> new RuntimeException("Planta não encontrada com o ID: " + id));
+        Planta planta = plantaRepository.findById(id).orElseThrow(() -> new RuntimeException("Planta não encontrada com o ID: " + id));
+        planta.incrementVisualizacoes();
+        plantaRepository.save(planta);
+        return planta;
     }
 
     @PostMapping
