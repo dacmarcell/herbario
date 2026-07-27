@@ -43,18 +43,13 @@ public class ImagemController {
 
     @GetMapping
     public ResponseEntity<List<Imagem>> listarImagens(@PathVariable Long plantaId) {
-        Planta planta = plantaRepository.findById(plantaId)
-                .orElseThrow(() -> new RuntimeException("Planta não encontrada"));
-        
+        plantaRepository.findById(plantaId).orElseThrow(() -> new RuntimeException("Planta não encontrada"));
         List<Imagem> imagens = imagemRepository.findByPlantaId(plantaId);
         return ResponseEntity.ok(imagens);
     }
 
     @PostMapping
-    public ResponseEntity<?> uploadImagem(
-            @PathVariable Long plantaId,
-            @RequestParam("arquivo") MultipartFile arquivo) {
-        
+    public ResponseEntity<?> uploadImagem(@PathVariable Long plantaId, @RequestParam("arquivo") MultipartFile arquivo) {
         // Verificar se a planta existe
         Planta planta = plantaRepository.findById(plantaId)
                 .orElseThrow(() -> new RuntimeException("Planta não encontrada"));
